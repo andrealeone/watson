@@ -1,0 +1,3 @@
+{
+  "ignorePatterns": ["demos/**", "tests/e2e/cli.ts", "tests/unit/core/fixtures/**"]
+}
