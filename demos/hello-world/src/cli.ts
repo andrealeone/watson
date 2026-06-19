@@ -1,0 +1,30 @@
+import type { Config } from '@/types/config'
+import { command } from '@/core/command'
+import { defineManifest, run } from '@/core/runtime'
+
+const hello = command({
+  meta: { description: 'Greet someone' },
+  run(ctx) {
+    const name = ctx.positionals[0] ?? 'World'
+    ctx.io.write(`Hello, ${name}!`)
+  },
+})
+
+const goodbye = command({
+  meta: { description: 'Say goodbye to someone' },
+  run(ctx) {
+    const name = ctx.positionals[0] ?? 'World'
+    ctx.io.write(`Goodbye, ${name}!`)
+  },
+})
+
+const manifest = defineManifest({ hello, goodbye })
+
+const config: Config = {
+  name: 'hello-world',
+  bin: 'hello',
+  commandsDir: 'commands',
+  version: '1.0.0',
+}
+
+process.exit(await run(manifest, config))

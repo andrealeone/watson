@@ -1,0 +1,17 @@
+import { command } from '@/core/command'
+import { DATA, emit } from '../../src/utils'
+
+export default command({
+  meta: { description: 'Get a single post by id' },
+  run(ctx) {
+    const id = Number.parseInt(ctx.positionals[0] ?? '1', 10),
+      post = DATA.posts.find((p) => p.id === id)
+
+    if (!post) {
+      ctx.io.writeError(`Post ${id} not found`)
+      return 1
+    }
+
+    emit(ctx, post)
+  },
+})

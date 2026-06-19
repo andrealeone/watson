@@ -1,0 +1,9 @@
+{
+  "name": "watson-interactive-io",
+  "version": "1.0.0",
+  "description": "User profile manager showcasing Watson's interactive and logging features",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run ./src/cli.ts"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "watson-hello-world",
+  "version": "1.0.0",
+  "description": "Simple greeting CLI built with Watson",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run ./src/cli.ts",
+    "build": "bun build ./src/cli.ts --compile --outfile dist/hello"
+  }
+}

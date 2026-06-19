@@ -1,0 +1,10 @@
+{
+  "name": "watson-data-transform",
+  "version": "1.0.0",
+  "description": "Data transformation and piping CLI built with Watson",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run ./src/cli.ts",
+    "build": "bun build ./src/cli.ts --compile --outfile dist/transform"
+  }
+}

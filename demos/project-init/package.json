@@ -1,0 +1,10 @@
+{
+  "name": "watson-project-init",
+  "version": "1.0.0",
+  "description": "Interactive project initialization CLI built with Watson",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run ./src/cli.ts",
+    "build": "bun build ./src/cli.ts --compile --outfile dist/init"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "watson-deploy-tool",
+  "version": "1.0.0",
+  "description": "Deployment CLI with flags and output styling built with Watson",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run ./src/cli.ts",
+    "build": "bun build ./src/cli.ts --compile --outfile dist/deploy"
+  }
+}
