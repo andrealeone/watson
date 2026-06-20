@@ -1,13 +1,13 @@
 # Positional Arguments
 
-Positional arguments are values passed after flags, in order. Watson provides strong typing and validation for positional arguments.
+Positional arguments are values passed after flags, in order. CTI provides strong typing and validation for positional arguments.
 
 ## Declaring Arguments
 
 Arguments are declared in the `args` array of a command module:
 
 ```typescript
-import { command, args } from 'watson'
+import { command, args } from 'cti'
 
 export default command({
   args: [

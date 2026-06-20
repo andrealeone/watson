@@ -1,6 +1,6 @@
 # Colors
 
-Watson provides a simple color interface using ANSI escape sequences. The coloring layer respects `NO_COLOR` and only applies colors when output is a terminal.
+CTI provides a simple color interface using ANSI escape sequences. The coloring layer respects `NO_COLOR` and only applies colors when output is a terminal.
 
 ## Color Function
 
@@ -17,7 +17,7 @@ run({ io }) {
 
 ## Available Colors
 
-Watson supports these ANSI colors:
+CTI supports these ANSI colors:
 
 - `red` — For errors and warnings
 - `green` — For success messages

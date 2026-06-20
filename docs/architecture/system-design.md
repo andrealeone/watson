@@ -1,6 +1,6 @@
 ## System Design Overview
 
-Watson is organised into focused modules. Each has a single responsibility and a clear interface.
+CTI is organised into focused modules. Each has a single responsibility and a clear interface.
 
 ```
 ┌────────────────────────────────────┐
@@ -24,7 +24,7 @@ Watson is organised into focused modules. Each has a single responsibility and a
 
 #### Core (`src/core/`)
 
-**Runtime**, **Router**, and **Parser** live here. They form Watson's command dispatch engine.
+**Runtime**, **Router**, and **Parser** live here. They form CTI's command dispatch engine.
 
 - **Runtime** — The `run()` dispatcher and the `defineManifest()` builder
 - **Router** — Resolves command names from a manifest (longest-prefix match), loads modules
@@ -150,7 +150,7 @@ Interfaces are small and stable. Implementations can evolve; contracts don't bre
 
 #### Minimal Dependencies
 
-Watson's core has zero npm dependencies. It uses:
+CTI's core has zero npm dependencies. It uses:
 
 - **Bun's native TypeScript support** (no build step)
 - **Node's `util.parseArgs`** (argument parsing)
@@ -166,7 +166,7 @@ This minimalism means:
 
 #### Type Safety
 
-Types are not optional. They're central to Watson's design:
+Types are not optional. They're central to CTI's design:
 
 - Commands declare flag types → Parser coerces to those types
 - Context is fully typed → Commands can't access non-existent properties
@@ -179,5 +179,5 @@ This means you catch mistakes at development time, not runtime.
 
 - **[Core Module](core.md)** — Router and parser deep dive
 - **[I/O System](io.md)** — Terminal interaction design
-- **[Type System](types.md)** — How types shape Watson
+- **[Type System](types.md)** — How types shape CTI
 - **[All Architecture Docs](../architecture/)** — Complete module reference

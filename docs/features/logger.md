@@ -1,6 +1,6 @@
 # Logger
 
-Watson provides a built-in logger for structured logging. The logger respects the `DEBUG` environment variable and provides four log levels.
+CTI provides a built-in logger for structured logging. The logger respects the `DEBUG` environment variable and provides four log levels.
 
 ## Logger Interface
 
@@ -18,7 +18,7 @@ export interface Logger {
 
 ## Log Levels
 
-Watson supports four log levels: `debug`, `info`, `warn`, and `error`.
+CTI supports four log levels: `debug`, `info`, `warn`, and `error`.
 
 ```typescript
 run({ logger }) {

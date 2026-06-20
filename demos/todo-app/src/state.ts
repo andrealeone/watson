@@ -10,7 +10,7 @@ export interface Todo {
   completed: boolean
 }
 
-export const TODOS_FILE = join(homedir(), '.watson-todos.json')
+export const TODOS_FILE = join(homedir(), '.cti-todos.json')
 
 export function loadTodos(): Todo[] {
   if (!existsSync(TODOS_FILE)) return []

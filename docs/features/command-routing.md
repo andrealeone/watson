@@ -1,6 +1,6 @@
 # Command Routing
 
-Watson routes commands based on the file structure of your `commands` directory. Each file becomes a command, with the directory hierarchy defining the command path.
+CTI routes commands based on the file structure of your `commands` directory. Each file becomes a command, with the directory hierarchy defining the command path.
 
 ## How It Works
 
@@ -20,7 +20,7 @@ commands/
 
 ## Route Resolution
 
-When a user runs a command like `app db migrate`, Watson:
+When a user runs a command like `app db migrate`, CTI:
 
 1. Splits the command arguments into route segments and remaining arguments
 2. Walks the manifest for the deepest matching entry
@@ -50,4 +50,4 @@ Internally, routes are represented as string arrays. The file `commands/db/migra
 
 ## Manifest System
 
-In development, routes are discovered at runtime from the file system. When compiled into a binary, Watson uses a pre-generated manifest that maps all routes statically, ensuring identical behavior under `bun run` and in compiled binaries.
+In development, routes are discovered at runtime from the file system. When compiled into a binary, CTI uses a pre-generated manifest that maps all routes statically, ensuring identical behavior under `bun run` and in compiled binaries.

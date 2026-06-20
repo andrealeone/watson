@@ -9,8 +9,8 @@ export const DATA = {
     { id: 3, name: 'Charlie', email: 'charlie@example.com' },
   ],
   posts: [
-    { id: 1, title: 'Getting Started with Watson', author: 'Alice' },
-    { id: 2, title: 'Advanced Watson Patterns', author: 'Bob' },
+    { id: 1, title: 'Getting Started with CTI', author: 'Alice' },
+    { id: 2, title: 'Advanced CTI Patterns', author: 'Bob' },
   ],
 }
 

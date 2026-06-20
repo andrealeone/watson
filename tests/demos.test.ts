@@ -89,7 +89,7 @@ const EXPECTATIONS: Record<string, DemoCase[]> = {
   ],
   'api-client': [
     { name: 'lists users', args: ['users', 'list'], stdout: [/Alice/, /Bob/] },
-    { name: 'gets a post', args: ['posts', 'get', '1'], stdout: [/Getting Started with Watson/] },
+    { name: 'gets a post', args: ['posts', 'get', '1'], stdout: [/Getting Started with CTI/] },
     {
       name: 'shows config from env',
       args: ['config'],
@@ -181,7 +181,7 @@ async function runCase(demo: string, c: DemoCase) {
     NO_COLOR: '1',
     ...c.env,
   }
-  if (c.isolateHome) env.HOME = mkdtempSync(join(tmpdir(), `watson-demo-${demo}-`))
+  if (c.isolateHome) env.HOME = mkdtempSync(join(tmpdir(), `cti-demo-${demo}-`))
 
   const proc = Bun.spawn(['bun', 'run', cli, ...c.args], {
     cwd: c.isolateHome ? env.HOME : join(DEMOS_DIR, demo),

@@ -1,7 +1,12 @@
 {
-  "name": "watson-interactive-io",
+  "name": "cti-demo-interactive-io",
   "version": "1.0.0",
-  "description": "User profile manager showcasing Watson's interactive and logging features",
+  "description": "User profile manager showcasing CTI's interactive and logging features",
+  "keywords": [
+    "cti",
+    "demo",
+    "cli"
+  ],
   "type": "module",
   "scripts": {
     "dev": "bun run ./src/cli.ts"

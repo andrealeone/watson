@@ -1,14 +1,14 @@
-## Contributing to Watson
+## Contributing to CTI
 
-Welcome. If you're reading this, you're probably thinking about helping Watson grow. Thank you.
+Welcome. If you're reading this, you're probably thinking about helping CTI grow. Thank you.
 
 ### What We're Building
 
-Watson is a Bun-native CLI framework that challenges a simple assumption: _building CLIs shouldn't be hard._
+CTI is a Bun-native CLI framework that challenges a simple assumption: _building CLIs shouldn't be hard._
 
 Right now, CLI frameworks are borrowed from the web development world. They're built for servers—persistent, always-on, network-heavy workloads. But CLIs are different. They run once and exit. They care about startup time in milliseconds. They distribute as single binaries, not npm packages.
 
-Watson is built for CLIs. Not servers, not libraries, not data pipelines. Just CLIs. And we're trying to make them fast, small, and a pleasure to build.
+CTI is built for CLIs. Not servers, not libraries, not data pipelines. Just CLIs. And we're trying to make them fast, small, and a pleasure to build.
 
 If you believe that's worth doing, you're in the right place.
 
@@ -16,19 +16,19 @@ If you believe that's worth doing, you're in the right place.
 
 #### You Build CLIs
 
-You know the pain. Every framework you've tried feels borrowed, over-engineered, slow. You want something lightweight and TypeScript-native that actually respects your time. **Contributing to Watson means building the tool you wish existed.** And you get to shape it from the ground up.
+You know the pain. Every framework you've tried feels borrowed, over-engineered, slow. You want something lightweight and TypeScript-native that actually respects your time. **Contributing to CTI means building the tool you wish existed.** And you get to shape it from the ground up.
 
 #### You Care About Simplicity
 
-You believe less code is better code. You hate framework magic. You think conventions are overrated. **Watson needs people who push back on complexity.** Every feature request will be challenged: "Is this essential? Can it live outside the core? Does it slow startup?"
+You believe less code is better code. You hate framework magic. You think conventions are overrated. **CTI needs people who push back on complexity.** Every feature request will be challenged: "Is this essential? Can it live outside the core? Does it slow startup?"
 
 #### You Want to Shape It Early
 
-Watson hasn't been released yet, so nothing is set in stone. **Contributing now means shaping the tool before its conventions harden.** Feedback on the design—what's missing, what's awkward—lands while it can still change everything.
+CTI hasn't been released yet, so nothing is set in stone. **Contributing now means shaping the tool before its conventions harden.** Feedback on the design—what's missing, what's awkward—lands while it can still change everything.
 
 #### You're Learning
 
-You want to understand how modern CLI frameworks work. Or you're building your first open-source contribution. Or you're exploring TypeScript, Bun, or systems design. **Watson's codebase is small and readable.** It's designed to be understandable in an afternoon. Contributing is a great way to learn.
+You want to understand how modern CLI frameworks work. Or you're building your first open-source contribution. Or you're exploring TypeScript, Bun, or systems design. **CTI's codebase is small and readable.** It's designed to be understandable in an afternoon. Contributing is a great way to learn.
 
 #### You Have Ideas
 
@@ -57,7 +57,7 @@ Maybe you don't code, but you have ideas. Or you write great documentation. Or y
 #### [Testing & Quality]
 
 - Write tests for existing code (improve coverage)
-- Test Watson on different platforms (Windows, Linux, macOS)
+- Test CTI on different platforms (Windows, Linux, macOS)
 - Test on different terminal emulators
 - Find and report edge cases
 
@@ -65,10 +65,10 @@ Maybe you don't code, but you have ideas. Or you write great documentation. Or y
 
 #### [Examples & Demos]
 
-- Build real-world CLIs with Watson
+- Build real-world CLIs with CTI
 - Create example projects showcasing patterns
 - Write blog posts or tutorials
-- Share your Watson projects
+- Share your CTI projects
 
 **Start here:** [Examples](guides/examples.md)
 
@@ -90,13 +90,13 @@ Maybe you don't code, but you have ideas. Or you write great documentation. Or y
 
 **Start here:** [Architecture: Core Module](architecture/core.md)
 
-### Getting Familiar with Watson
+### Getting Familiar with CTI
 
 Before diving into code, understand what you're building:
 
 #### The 30-Minute Orientation
 
-1. **[Vision](principles/vision.md)** (5 min) — Why Watson exists
+1. **[Vision](principles/vision.md)** (5 min) — Why CTI exists
 2. **[Philosophy](principles/philosophy.md)** (5 min) — Design principles
 3. **[Quick Start](getting-started/quickstart.md)** (10 min) — Try it yourself
 4. **[Roadmap](future/roadmap.md)** (10 min) — Where it's going
@@ -114,13 +114,13 @@ This takes 2–3 hours and prepares you to contribute meaningfully.
 
 ### Where We Need Help Most
 
-Watson is Phase 0. The foundation is solid; the ecosystem is nascent. Here's where help accelerates us:
+CTI is Phase 0. The foundation is solid; the ecosystem is nascent. Here's where help accelerates us:
 
 #### Immediate (This Quarter)
 
 - **Testing** — Find bugs and platform issues
 - **Documentation** — Make existing docs better
-- **Examples** — Show what Watson can do
+- **Examples** — Show what CTI can do
 - **Feedback** — Tell us what's missing
 
 #### Phase 1 (Q3–Q4 2026)
@@ -137,7 +137,7 @@ See [Roadmap](future/roadmap.md) for details.
 #### Option 1: Low Barrier (Documentation, Examples, Discussion)
 
 1. Read the [Quick Start](getting-started/quickstart.md)
-2. Build a small CLI with Watson
+2. Build a small CLI with CTI
 3. Open an issue with what confused you or what you learned
 4. Or: Improve the docs based on your experience
 5. Or: Share your CLI as an example
@@ -148,7 +148,7 @@ See [Roadmap](future/roadmap.md) for details.
 
 1. Clone the repo
 2. Follow [Contributing Guide: Installation](contributing/guide.md#getting-started)
-3. Run Watson locally
+3. Run CTI locally
 4. Test on your platform
 5. Report issues: bugs, platform problems, confusing errors
 6. Suggest improvements
@@ -180,29 +180,29 @@ Once you've decided to contribute code, follow the [Contributing Guide](contribu
 
 ### Philosophy of Contribution
 
-A few things to know about how Watson is run:
+A few things to know about how CTI is run:
 
 #### We Optimise for Simplicity
 
 Every feature is questioned. Does this justify the complexity? Can it live outside the core? Does it slow startup? If you're proposing something, be prepared to justify it against simplicity.
 
-That's not gatekeeping; it's protection. Watson's value is that it's small and understandable. We keep it that way.
+That's not gatekeeping; it's protection. CTI's value is that it's small and understandable. We keep it that way.
 
 #### We Value Stability
 
 APIs are stable within major versions. If you're fixing a bug or adding a feature, it won't break existing users. If a change requires a breaking change, we'll bump the major version.
 
-Stability means people can build tools on Watson without fear.
+Stability means people can build tools on CTI without fear.
 
 #### We Listen to Users
 
 Ideas come from real problems, not imagination. If 100 developers ask for feature X, we consider it. If one person thinks it's cool, we probably won't add it (unless they're right and we just haven't realised it yet).
 
-Use Watson. Tell us what's missing. That's the best contribution.
+Use CTI. Tell us what's missing. That's the best contribution.
 
 #### We Move Deliberately
 
-Watson isn't in a race. We're building something that will last. That means:
+CTI isn't in a race. We're building something that will last. That means:
 
 - Not rushing features
 - Thinking through design carefully
@@ -221,7 +221,7 @@ Or read the [Core Concepts](concepts/core-concepts.md) and come back. Nothing he
 
 ### Code of Conduct
 
-Watson is for everyone. We welcome:
+CTI is for everyone. We welcome:
 
 - People of all backgrounds
 - Beginners and experts equally
@@ -233,7 +233,7 @@ We don't tolerate:
 - Discrimination or harassment
 - Bad-faith arguments
 - Disrespect or condescension
-- Anything that makes Watson unwelcoming
+- Anything that makes CTI unwelcoming
 
 If you see something, say something. We'll take it seriously.
 
@@ -252,23 +252,23 @@ That's it. You're in.
 
 ### Further Reading
 
-- **[Vision](principles/vision.md)** — Why Watson exists
+- **[Vision](principles/vision.md)** — Why CTI exists
 - **[Roadmap](future/roadmap.md)** — What's coming
 - **[Contributing Guide](contributing/guide.md)** — The mechanics
-- **[Core Concepts](concepts/core-concepts.md)** — How Watson works
+- **[Core Concepts](concepts/core-concepts.md)** — How CTI works
 - **[Philosophy](principles/philosophy.md)** — Why things are designed this way
 
 ---
 
 ### A Personal Note
 
-Building Watson alone would be slow and lonely. Every person who shows up—whether to code, test, discuss, or just use Watson and report what's missing—makes this real.
+Building CTI alone would be slow and lonely. Every person who shows up—whether to code, test, discuss, or just use CTI and report what's missing—makes this real.
 
 We're building something small and thoughtful in a world of bloated frameworks. That's hard. But it's also exactly why we need your help.
 
 Thank you for considering it. Let's build something together.
 
-— Andrea and the Watson team
+— Andrea and the CTI team
 
 ---
 

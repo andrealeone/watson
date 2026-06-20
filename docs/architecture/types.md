@@ -1,10 +1,10 @@
 ## Type System
 
-Watson's type system is at the heart of the framework. Types serve as contracts between components, preventing mistakes and making code self-documenting.
+CTI's type system is at the heart of the framework. Types serve as contracts between components, preventing mistakes and making code self-documenting.
 
 ### Philosophy
 
-Types in Watson are:
+Types in CTI are:
 
 - **Central.** Not an afterthought or optional layer.
 - **Explicit.** No implicit any; types are declared clearly.
@@ -287,7 +287,7 @@ This organisation:
 
 ### Type-Driven Development
 
-Watson encourages type-driven development:
+CTI encourages type-driven development:
 
 1. **Define the types** — What does my command need?
 2. **Write the handler** — Implement logic based on types

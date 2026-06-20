@@ -1,7 +1,12 @@
 {
-  "name": "watson-deploy-tool",
+  "name": "cti-demo-deploy-tool",
   "version": "1.0.0",
-  "description": "Deployment CLI with flags and output styling built with Watson",
+  "description": "Deployment CLI with flags and output styling built with CTI",
+  "keywords": [
+    "cti",
+    "demo",
+    "cli"
+  ],
   "type": "module",
   "scripts": {
     "dev": "bun run ./src/cli.ts",

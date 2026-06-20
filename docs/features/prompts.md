@@ -1,6 +1,6 @@
 # Prompts
 
-Watson provides interactive prompting for text input, yes/no confirmation, and multiple choice selection. All prompts respect TTY mode and degrade when output is piped.
+CTI provides interactive prompting for text input, yes/no confirmation, and multiple choice selection. All prompts respect TTY mode and degrade when output is piped.
 
 ## Text Prompts
 

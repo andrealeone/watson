@@ -1,14 +1,14 @@
-## Watson CLI Documentation
+## CTI CLI Documentation
 
-A complete guide to Watson—a Bun-native TypeScript CLI framework built on the belief that CLI development should be straightforward, not laborious.
+A complete guide to CTI—a Bun-native TypeScript CLI framework built on the belief that CLI development should be straightforward, not laborious.
 
 ### Start Here
 
-**New to Watson?**
+**New to CTI?**
 
-- **[Vision & Philosophy](principles/vision.md)** — Why Watson exists and what we're building
+- **[Vision & Philosophy](principles/vision.md)** — Why CTI exists and what we're building
 - **[Quick Start](getting-started/quickstart.md)** — Five minutes from nothing to your first command
-- **[Core Concepts](concepts/core-concepts.md)** — The mental model behind Watson
+- **[Core Concepts](concepts/core-concepts.md)** — The mental model behind CTI
 
 **Convinced? Ready to build?**
 
@@ -17,9 +17,9 @@ A complete guide to Watson—a Bun-native TypeScript CLI framework built on the 
 - **[Demos](guides/demos.md)** — Runnable example CLIs in [`/demos`](../demos) you can read, run, and adapt
 - **[API Reference](reference/api-reference.md)** — Type definitions and exports
 
-### Understanding Watson
+### Understanding CTI
 
-Deep dives into how Watson is designed and why:
+Deep dives into how CTI is designed and why:
 
 **Architecture & Design**
 
@@ -31,15 +31,15 @@ Deep dives into how Watson is designed and why:
 
 **Why These Choices?**
 
-- **[Value Proposition](principles/value-proposition.md)** — What makes Watson worth your time
-- **[Comparison & Trade-offs](principles/philosophy.md)** — How Watson differs from other frameworks
+- **[Value Proposition](principles/value-proposition.md)** — What makes CTI worth your time
+- **[Comparison & Trade-offs](principles/philosophy.md)** — How CTI differs from other frameworks
 
 ### Contributing
 
 - **[Contribution Guide](contributing/guide.md)** — Development workflow, testing, code style
 - **[Testing](contributing/testing.md)** — How [`/tests`](../tests) is structured (unit, e2e, demos) and how to run it
-- **[Roadmap](future/roadmap.md)** — Where Watson is heading
+- **[Roadmap](future/roadmap.md)** — Where CTI is heading
 
 ---
 
-**Watson is built on [Bun](https://bun.sh) and TypeScript.** It compiles to standalone binaries with zero runtime overhead. Everything in these docs reflects that reality.
+**CTI is built on [Bun](https://bun.sh) and TypeScript.** It compiles to standalone binaries with zero runtime overhead. Everything in these docs reflects that reality.

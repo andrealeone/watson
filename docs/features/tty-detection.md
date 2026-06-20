@@ -1,6 +1,6 @@
 # TTY Detection
 
-TTY detection determines whether the command's output is connected to a terminal (interactive) or piped/redirected (non-interactive). Watson uses this to adapt output and interactivity.
+TTY detection determines whether the command's output is connected to a terminal (interactive) or piped/redirected (non-interactive). CTI uses this to adapt output and interactivity.
 
 ## What Is a TTY?
 
@@ -30,7 +30,7 @@ run({ io }) {
 
 ## Adaptive Behavior
 
-Watson adapts behavior based on TTY status:
+CTI adapts behavior based on TTY status:
 
 **In a TTY:**
 

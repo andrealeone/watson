@@ -1,6 +1,6 @@
 # Spinners
 
-Spinners provide animated loading indicators for long-running operations. Watson's spinner is TTY-aware and degrades gracefully when output is piped.
+Spinners provide animated loading indicators for long-running operations. CTI's spinner is TTY-aware and degrades gracefully when output is piped.
 
 ## Creating a Spinner
 

@@ -4,28 +4,28 @@
 
 #### Explicit Over Implicit
 
-Watson does not use magic. There are no hidden conventions, auto-discovery mechanisms, or surprise behaviours.
+CTI does not use magic. There are no hidden conventions, auto-discovery mechanisms, or surprise behaviours.
 
 - Commands are registered explicitly: `defineManifest({ name: handler })`
 - Configuration is explicit: you build a `Config` object and pass it to `run()`
 - Dispatch is explicit: `run(manifest, config)` resolves argv → command
 
-You read Watson code and immediately understand what happens. No searching for decorators or annotation processors.
+You read CTI code and immediately understand what happens. No searching for decorators or annotation processors.
 
 #### Minimalism by Default
 
-Watson ships with only what CLI tools need. This is a deliberate choice:
+CTI ships with only what CLI tools need. This is a deliberate choice:
 
 - Fewer dependencies = faster startup
 - Smaller codebase = easier to understand
 - Fewer concepts = shorter learning curve
 - Less magic = easier to debug
 
-If you need something Watson doesn't provide, you can add it. But Watson won't bloat itself "just in case."
+If you need something CTI doesn't provide, you can add it. But CTI won't bloat itself "just in case."
 
 #### Composition Over Configuration
 
-Watson favours composable primitives over elaborate configuration. Instead of:
+CTI favours composable primitives over elaborate configuration. Instead of:
 
 ```typescript
 {
@@ -49,7 +49,7 @@ Configuration is code. Code is honest.
 
 #### TypeScript First
 
-Watson assumes TypeScript. Types are not optional; they're central to how the framework works.
+CTI assumes TypeScript. Types are not optional; they're central to how the framework works.
 
 - Command handlers are typed: `(ctx: Context) => Promise<void>`
 - Flags and arguments are typed: `flags?: Record<string, FlagSpec>`
@@ -70,7 +70,7 @@ Performance isn't a feature you enable later. It's built in from the start.
 
 #### Embrace the Runtime
 
-Watson is built specifically for Bun. It doesn't try to work everywhere or run on Node.js. This lets us:
+CTI is built specifically for Bun. It doesn't try to work everywhere or run on Node.js. This lets us:
 
 - Use Bun's native TypeScript support (no transpilation)
 - Compile to standalone binaries (Bun's feature, not ours)
@@ -79,15 +79,15 @@ Watson is built specifically for Bun. It doesn't try to work everywhere or run o
 
 Bun is a constraint we embrace, not a limitation we work around.
 
-### How This Shapes Watson
+### How This Shapes CTI
 
 #### Argument Parsing
 
-Watson uses Node.js's built-in `parseArgs` utility, enhanced with type coercion. No external parser, no configuration nightmare. Flags are mapped to TypeScript types.
+CTI uses Node.js's built-in `parseArgs` utility, enhanced with type coercion. No external parser, no configuration nightmare. Flags are mapped to TypeScript types.
 
 #### I/O Primitives
 
-Instead of shipping a full-featured terminal UI library, Watson provides:
+Instead of shipping a full-featured terminal UI library, CTI provides:
 
 - `colour(text, 'red')` — Direct ANSI colour output
 - `spinner(text)` — Basic loading indication
@@ -113,11 +113,11 @@ This is clear, typesafe, and immediately understandable.
 
 #### Configuration
 
-Watson doesn't enforce a configuration format. Load YAML, JSON, TypeScript modules—whatever suits you. Configuration is just data. Type it how you like.
+CTI doesn't enforce a configuration format. Load YAML, JSON, TypeScript modules—whatever suits you. Configuration is just data. Type it how you like.
 
 ---
 
-### Where Watson Differs
+### Where CTI Differs
 
 #### vs. Yargs/Commander.js
 
@@ -127,23 +127,23 @@ Those libraries are mature and widely used, but they:
 - Support Node.js (adds complexity)
 - Have larger surface area (more to learn)
 
-Watson is Bun-native, smaller, and assumes TypeScript.
+CTI is Bun-native, smaller, and assumes TypeScript.
 
 #### vs. Oclif
 
-Oclif is feature-rich and production-tested. It's designed for large CLI suites. Watson is smaller, faster, and opinionated in different ways.
+Oclif is feature-rich and production-tested. It's designed for large CLI suites. CTI is smaller, faster, and opinionated in different ways.
 
-Oclif uses classes and a plugin framework. Watson uses plain command modules and a small dispatcher.
+Oclif uses classes and a plugin framework. CTI uses plain command modules and a small dispatcher.
 
 #### vs. Deno's Fresh (hypothetically)
 
-If Deno had a CLI framework, it would likely be similar to Watson—minimal, TypeScript-first, runtime-native. We got there first with Bun.
+If Deno had a CLI framework, it would likely be similar to CTI—minimal, TypeScript-first, runtime-native. We got there first with Bun.
 
 ---
 
-### What Watson Isn't
+### What CTI Isn't
 
-Watson is not:
+CTI is not:
 
 - **A web framework.** Use Hono, Elysia, or others for servers.
 - **A general-purpose application framework.** It's for CLIs specifically.
@@ -151,4 +151,4 @@ Watson is not:
 - **A package manager.** It doesn't manage dependencies.
 - **A terminal UI framework.** It provides primitives, not a full component system.
 
-Watson is a CLI framework. We do that one thing exceptionally well.
+CTI is a CLI framework. We do that one thing exceptionally well.

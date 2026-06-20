@@ -7,7 +7,7 @@ A command module is the default export of a command file. It defines what the co
 Every command file exports a command module with this shape:
 
 ```typescript
-import { command, args, flags } from 'watson'
+import { command, args, flags } from 'cti'
 
 export default command({
   meta: {
@@ -144,7 +144,7 @@ The wrapper:
 - Validates the command definition
 - Ensures type consistency
 - Provides error messages at load time
-- Is the only extension point for future Watson features
+- Is the only extension point for future CTI features
 
 ## Minimal Command
 

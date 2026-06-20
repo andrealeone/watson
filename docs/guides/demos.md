@@ -1,7 +1,7 @@
 ## Demos
 
 The [`/demos`](../../demos) folder holds small, self-contained example CLIs built
-with Watson. They exist to show the **real, runnable API** in context — each demo
+with CTI. They exist to show the **real, runnable API** in context — each demo
 is a single readable file you can run, read, copy, and adapt.
 
 ### What's there

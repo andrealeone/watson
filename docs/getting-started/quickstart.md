@@ -2,28 +2,28 @@
 
 ### Install Bun
 
-Watson requires Bun 1.3.14 or later. Install it from [bun.sh](https://bun.sh).
+CTI requires Bun 1.3.14 or later. Install it from [bun.sh](https://bun.sh).
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
 
-### Create a Watson Project
+### Create a CTI Project
 
 ```bash
 mkdir my-cli && cd my-cli
 bun init -y
 ```
 
-### Install Watson
+### Install CTI
 
-Watson is still in early development. For now, clone or copy the Watson source:
+CTI is still in early development. For now, clone or copy the CTI source:
 
 ```bash
 bun install
 ```
 
-(In a released version, this would be `bun add watson-cli`.)
+(In a released version, this would be `bun add cti-cli`.)
 
 ### Your First Command
 
@@ -96,7 +96,7 @@ Done. You have a compiled, standalone CLI that runs instantly.
 - **[Core Concepts](../concepts/core-concepts.md)** — Understand commands, context, and routing
 - **[Building Commands](../guides/building-commands.md)** — Patterns and best practices
 - **[Examples](../guides/examples.md)** — More real-world usage
-- **[Architecture](../architecture/system-design.md)** — How Watson works under the hood
+- **[Architecture](../architecture/system-design.md)** — How CTI works under the hood
 
 ---
 

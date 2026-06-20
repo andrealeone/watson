@@ -10,7 +10,7 @@ export interface UserProfile {
   createdAt: string
 }
 
-export const PROFILES_FILE = join(homedir(), '.watson-profiles.json')
+export const PROFILES_FILE = join(homedir(), '.cti-profiles.json')
 
 export async function loadProfiles(): Promise<UserProfile[]> {
   try {

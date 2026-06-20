@@ -1,6 +1,6 @@
 ## Roadmap
 
-Watson is being built in phases. This is where the existing pieces are heading: the
+CTI is being built in phases. This is where the existing pieces are heading: the
 `run()` / `defineManifest()` dispatcher, the router and parser, the I/O primitives,
 and the type system. Every item here extends a component that already exists in the
 source — we don't promise subsystems that aren't built.
@@ -45,7 +45,7 @@ Build on the I/O primitives that already exist:
 
 ### Philosophy
 
-Watson's roadmap follows these principles:
+CTI's roadmap follows these principles:
 
 #### Increase Value Without Increasing Complexity
 
@@ -67,15 +67,15 @@ Once released, APIs should be stable. We'll use major versions for breaking chan
 
 #### Optimise for CLI Use Cases
 
-Watson is specifically for CLIs. Features that benefit other use cases (servers, libraries) are lower priority. If you want a server framework, use Hono.
+CTI is specifically for CLIs. Features that benefit other use cases (servers, libraries) are lower priority. If you want a server framework, use Hono.
 
 ### How to Influence the Roadmap
 
-1. **Use Watson** — Build things with it; discover real problems
+1. **Use CTI** — Build things with it; discover real problems
 2. **Open issues** — Describe use cases, not solutions
 3. **Contribute** — Submit PRs for features you need
 4. **Discuss** — Join conversations on GitHub
 
 ---
 
-The roadmap will evolve as Watson does. Check back often.
+The roadmap will evolve as CTI does. Check back often.

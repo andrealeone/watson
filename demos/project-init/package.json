@@ -1,7 +1,12 @@
 {
-  "name": "watson-project-init",
+  "name": "cti-demo-project-init",
   "version": "1.0.0",
-  "description": "Interactive project initialization CLI built with Watson",
+  "description": "Interactive project initialization CLI built with CTI",
+  "keywords": [
+    "cti",
+    "demo",
+    "cli"
+  ],
   "type": "module",
   "scripts": {
     "dev": "bun run ./src/cli.ts",

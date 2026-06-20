@@ -1,16 +1,16 @@
 ## Value Proposition
 
-### Why Choose Watson?
+### Why Choose CTI?
 
 #### Performance First
 
-**Startup speed matters.** A user invoking your CLI shouldn't feel friction. Watson's baseline is 1–10ms, depending on hardware. Most of that is Bun's initialisation; your code adds almost nothing.
+**Startup speed matters.** A user invoking your CLI shouldn't feel friction. CTI's baseline is 1–10ms, depending on hardware. Most of that is Bun's initialisation; your code adds almost nothing.
 
 Compare to Node.js frameworks, which start in 300–500ms before your first command executes. Multiply that by 20 invocations across a developer's day, and you've lost half an hour.
 
-With Watson, it's fast from day one. No optimisation needed. The framework gets out of the way.
+With CTI, it's fast from day one. No optimisation needed. The framework gets out of the way.
 
-**Binary size matters.** A standalone Watson CLI weighs 10–50MB depending on what you include. A Node.js CLI weighs 100–300MB before dependencies. Distribution is easier, installation is faster, end-user friction is lower.
+**Binary size matters.** A standalone CTI CLI weighs 10–50MB depending on what you include. A Node.js CLI weighs 100–300MB before dependencies. Distribution is easier, installation is faster, end-user friction is lower.
 
 #### TypeScript Without Compromise
 
@@ -23,7 +23,7 @@ No build step. No configuration files. Edit a `.ts` file, run `bun run`, and you
 
 #### Designed for CLIs
 
-Watson wasn't adapted from something else. Every design choice reflects the reality of CLI development:
+CTI wasn't adapted from something else. Every design choice reflects the reality of CLI development:
 
 **Commands are first-class.** Each command is a module. You register it, you understand it, you control it. No implicit routing, no hidden conventions.
 
@@ -35,7 +35,7 @@ Watson wasn't adapted from something else. Every design choice reflects the real
 
 #### Minimal Surface Area
 
-Watson includes what CLI tools need and nothing more:
+CTI includes what CLI tools need and nothing more:
 
 - Routing and command dispatch
 - Argument and flag parsing with type coercion
@@ -44,7 +44,7 @@ Watson includes what CLI tools need and nothing more:
 
 We don't include:
 
-- ORMs or database abstractions (use whatever you want; Watson won't get in the way)
+- ORMs or database abstractions (use whatever you want; CTI won't get in the way)
 - Web frameworks or middleware (not a CLI concern)
 - Logging frameworks (we provide basic logging; extend it as needed)
 - Package managers or dependency resolution (use Node modules or Bun's dependencies)
@@ -58,7 +58,7 @@ This minimalism is intentional. A smaller surface area means:
 
 #### Standalone Binaries
 
-Watson compiles to executables that work anywhere:
+CTI compiles to executables that work anywhere:
 
 ```bash
 bun build ./src/cli.ts --compile --outfile dist/my-cli
@@ -69,7 +69,7 @@ That's it. A single binary. No Node.js installation required. No npm. No `node_m
 
 #### Composability
 
-Watson commands are plain modules. That means you can:
+CTI commands are plain modules. That means you can:
 
 - Share command logic across multiple CLI tools by importing it
 - Compose commands into a manifest with `defineManifest`
@@ -79,7 +79,7 @@ There's no bespoke extension system to learn—just TypeScript modules and a dis
 
 ---
 
-### Choose Watson If
+### Choose CTI If
 
 - You're building a CLI tool (not a server, not a library)
 - You want fast startup and small binaries
@@ -88,11 +88,11 @@ There's no bespoke extension system to learn—just TypeScript modules and a dis
 - You're distributing a standalone executable
 - You care about your users' experience
 
-### You Might Not Choose Watson If
+### You Might Not Choose CTI If
 
 - You're building a server (use a framework like Hono or Elysia)
-- You need runtime-only solutions (Watson is Bun-only)
+- You need runtime-only solutions (CTI is Bun-only)
 - You want to target Node.js exclusively (though Bun runs on many platforms)
-- You need extensive built-in middleware or an extension framework (Watson is intentionally minimal)
+- You need extensive built-in middleware or an extension framework (CTI is intentionally minimal)
 
-Watson isn't trying to be everything. It's trying to be the best choice for one thing: fast, lean, standalone CLI applications.
+CTI isn't trying to be everything. It's trying to be the best choice for one thing: fast, lean, standalone CLI applications.

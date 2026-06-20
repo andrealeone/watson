@@ -1,6 +1,6 @@
 # Validation
 
-Watson provides validation for flags and positional arguments. Custom validation functions ensure that parsed values meet your requirements before the handler runs.
+CTI provides validation for flags and positional arguments. Custom validation functions ensure that parsed values meet your requirements before the handler runs.
 
 ## Flag Validation
 
@@ -17,7 +17,7 @@ flags: {
 }
 ```
 
-If validation fails, Watson prints the error message and exits with a usage error.
+If validation fails, CTI prints the error message and exits with a usage error.
 
 ## Argument Validation
 
@@ -133,7 +133,7 @@ flags: {
 
 ## Error Handling
 
-When validation fails, Watson:
+When validation fails, CTI:
 
 1. Prints the error message
 2. Exits with code 2 (usage error)

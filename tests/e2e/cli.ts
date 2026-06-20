@@ -35,8 +35,8 @@ const manifest = defineManifest({
 })
 
 const config: Config = {
-  name: 'watson',
-  bin: 'watson',
+  name: 'cti',
+  bin: 'cti',
   commandsDir: 'commands',
   version: '1.0.0',
 }

@@ -1,7 +1,12 @@
 {
-  "name": "watson-data-transform",
+  "name": "cti-demo-data-transform",
   "version": "1.0.0",
-  "description": "Data transformation and piping CLI built with Watson",
+  "description": "Data transformation and piping CLI built with CTI",
+  "keywords": [
+    "cti",
+    "demo",
+    "cli"
+  ],
   "type": "module",
   "scripts": {
     "dev": "bun run ./src/cli.ts",

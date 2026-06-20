@@ -1,13 +1,13 @@
 # Flag Parsing
 
-Watson provides typed, zero-overhead flag parsing built on Node's `util.parseArgs`. Every flag is declared with its type, default, and validation rules, and the parser ensures values match their specification.
+CTI provides typed, zero-overhead flag parsing built on Node's `util.parseArgs`. Every flag is declared with its type, default, and validation rules, and the parser ensures values match their specification.
 
 ## Flag Types
 
-Watson supports three flag types: `string`, `boolean`, and `number`.
+CTI supports three flag types: `string`, `boolean`, and `number`.
 
 ```typescript
-import { createCLI } from 'watson'
+import { createCLI } from 'cti'
 
 export default command({
   flags: {

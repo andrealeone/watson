@@ -1,6 +1,6 @@
 # Interactive I/O Demo
 
-A user profile manager CLI that showcases Watson's interactive and logging features.
+A user profile manager CLI that showcases CTI's interactive and logging features.
 
 ## Features Demonstrated
 
@@ -77,7 +77,7 @@ echo '[{"name":"Alice","email":"alice@example.com","role":"admin"}]' | bun run .
 
 ## Storage
 
-Profiles are persisted to `~/.watson-profiles.json` as a JSON array.
+Profiles are persisted to `~/.cti-profiles.json` as a JSON array.
 
 ## Testing
 

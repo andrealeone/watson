@@ -1,20 +1,20 @@
 ## Documentation Structure
 
-Watson's documentation is organized into eight logical clusters, each with a specific purpose.
+CTI's documentation is organized into eight logical clusters, each with a specific purpose.
 
 ### Overview of Clusters
 
 #### 1. **Principles** (`/principles/`)
 
-Why Watson exists and what makes it different.
+Why CTI exists and what makes it different.
 
-- **vision.md** — The problem Watson solves and the future it's building toward
-- **value-proposition.md** — Why you should choose Watson over alternatives
-- **philosophy.md** — Design principles and how they shape Watson
+- **vision.md** — The problem CTI solves and the future it's building toward
+- **value-proposition.md** — Why you should choose CTI over alternatives
+- **philosophy.md** — Design principles and how they shape CTI
 
-**For:** Decision makers, architects, people evaluating Watson
+**For:** Decision makers, architects, people evaluating CTI
 
-**Read if:** You're deciding whether Watson is right for your project
+**Read if:** You're deciding whether CTI is right for your project
 
 ---
 
@@ -24,7 +24,7 @@ From zero to first working CLI.
 
 - **quickstart.md** — Five minutes from nothing to your first command
 
-**For:** Developers new to Watson
+**For:** Developers new to CTI
 
 **Read if:** You want to start building immediately
 
@@ -32,13 +32,13 @@ From zero to first working CLI.
 
 #### 3. **Concepts** (`/concepts/`)
 
-The mental model behind Watson.
+The mental model behind CTI.
 
 - **core-concepts.md** — Commands, context, routing, flags, configuration—the key ideas
 
-**For:** Anyone learning Watson
+**For:** Anyone learning CTI
 
-**Read if:** You want to understand how Watson works
+**Read if:** You want to understand how CTI works
 
 ---
 
@@ -46,27 +46,27 @@ The mental model behind Watson.
 
 Deep dives into each module and how they work.
 
-- **system-design.md** — Overview of Watson's layered architecture
+- **system-design.md** — Overview of CTI's layered architecture
 - **core.md** — Runtime dispatcher, router, and argument parsing (`src/core/`)
 - **io.md** — Terminal interaction, colours, prompts (`src/io/`)
 - **types.md** — Type system and contracts (`src/types/`)
 - **utils.md** — Utilities: coercion, TTY detection (`src/utils/`)
 
-**For:** Contributors, architects, developers building on Watson's internals
+**For:** Contributors, architects, developers building on CTI's internals
 
-**Read if:** You want to understand how Watson is built or extend it deeply
+**Read if:** You want to understand how CTI is built or extend it deeply
 
 ---
 
 #### 5. **Guides** (`/guides/`)
 
-Practical patterns for building with Watson.
+Practical patterns for building with CTI.
 
 - **building-commands.md** — How to write excellent commands with best practices
-- **demos.md** — Example CLIs demonstrating Watson features (runnable, copy-and-adapt)
+- **demos.md** — Example CLIs demonstrating CTI features (runnable, copy-and-adapt)
 - **examples.md** — Real-world usage patterns and code snippets
 
-**For:** Developers building CLIs with Watson
+**For:** Developers building CLIs with CTI
 
 **Read if:** You're writing commands or learning from examples
 
@@ -86,35 +86,35 @@ Complete API documentation.
 
 #### 7. **Contributing** (`/contributing/`)
 
-How to help improve Watson.
+How to help improve CTI.
 
 - **guide.md** — Development workflow, code style, reporting issues
 - **testing.md** — Three test layers (unit, e2e, demos), running tests, validation strategy
 
 **For:** Contributors and maintainers
 
-**Read if:** You want to contribute to Watson's development or understand the test structure
+**Read if:** You want to contribute to CTI's development or understand the test structure
 
 ---
 
 #### 8. **Future** (`/future/`)
 
-Where Watson is heading.
+Where CTI is heading.
 
 - **roadmap.md** — Phases of development, planned features, and decision-making philosophy
 
 **For:** Users who want to know what's coming
 
-**Read if:** You want to understand Watson's future direction
+**Read if:** You want to understand CTI's future direction
 
 ---
 
 ### Reading Paths
 
-#### Path 1: "I'm Evaluating Watson"
+#### Path 1: "I'm Evaluating CTI"
 
 1. **[Vision](principles/vision.md)** — Understand the problem and opportunity
-2. **[Value Proposition](principles/value-proposition.md)** — Why Watson, not alternatives?
+2. **[Value Proposition](principles/value-proposition.md)** — Why CTI, not alternatives?
 3. **[Quick Start](getting-started/quickstart.md)** — Try it out
 4. **[Roadmap](future/roadmap.md)** — Where is this going?
 
@@ -134,7 +134,7 @@ Where Watson is heading.
 
 ---
 
-#### Path 3: "I'm Contributing to Watson"
+#### Path 3: "I'm Contributing to CTI"
 
 1. **[Philosophy](principles/philosophy.md)** — Understand design principles
 2. **[System Design](architecture/system-design.md)** — Overall architecture
@@ -145,7 +145,7 @@ Where Watson is heading.
 
 ---
 
-#### Path 4: "I'm Using Watson's APIs"
+#### Path 4: "I'm Using CTI's APIs"
 
 1. **[Core Concepts](concepts/core-concepts.md)** — Understand the model
 2. **[API Reference](reference/api-reference.md)** — Exact signatures
@@ -159,15 +159,15 @@ Where Watson is heading.
 
 | Goal                         | Document                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------- |
-| Decide whether to use Watson | [Vision](principles/vision.md) + [Value Proposition](principles/value-proposition.md) |
+| Decide whether to use CTI | [Vision](principles/vision.md) + [Value Proposition](principles/value-proposition.md) |
 | Build your first command     | [Quick Start](getting-started/quickstart.md)                                          |
-| Understand Watson            | [Core Concepts](concepts/core-concepts.md)                                            |
+| Understand CTI            | [Core Concepts](concepts/core-concepts.md)                                            |
 | Write better commands        | [Building Commands](guides/building-commands.md)                                      |
 | See working examples         | [Demos](guides/demos.md) + [Examples](guides/examples.md)                             |
 | Look up a type               | [API Reference](reference/api-reference.md)                                           |
-| Understand how Watson works  | [System Design](architecture/system-design.md)                                        |
+| Understand how CTI works  | [System Design](architecture/system-design.md)                                        |
 | Understand testing           | [Testing Guide](contributing/testing.md)                                              |
-| Contribute to Watson         | [Contributing Guide](contributing/guide.md)                                           |
+| Contribute to CTI         | [Contributing Guide](contributing/guide.md)                                           |
 | See what's coming            | [Roadmap](future/roadmap.md)                                                          |
 
 ---
@@ -210,7 +210,7 @@ Architectural decisions explain the "why":
 
 ### Documentation Maintenance
 
-Watson's docs are living. As the framework evolves:
+CTI's docs are living. As the framework evolves:
 
 - Architecture docs are updated when internals change
 - API docs stay in sync with code
@@ -231,4 +231,4 @@ Check the `git log` for `docs/` to see what changed recently.
 
 ---
 
-Happy reading. Welcome to Watson.
+Happy reading. Welcome to CTI.

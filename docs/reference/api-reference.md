@@ -1,6 +1,6 @@
 ## API Reference
 
-Complete type and function definitions for Watson.
+Complete type and function definitions for CTI.
 
 ### Types
 

@@ -1,7 +1,7 @@
 {
-  "name": "watson-cli",
-  "version": "1.0.0",
-  "description": "Bun-native TypeScript CLI framework",
+  "name": "cti",
+  "version": "1.0.0-rc.1",
+  "description": "Bun-Native TypeScript CLI Framework",
   "type": "module",
   "bin": {
     "app": "./dist/cli.js"

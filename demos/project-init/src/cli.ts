@@ -39,7 +39,7 @@ const init = command({
       ctx.io.write('  ✓ tsconfig.json')
     }
 
-    writeFileSync(join(dir, 'README.md'), `# ${name}\n\nGenerated with Watson.\n`)
+    writeFileSync(join(dir, 'README.md'), `# ${name}\n\nGenerated with CTI.\n`)
     ctx.io.write('  ✓ README.md')
 
     ctx.io.write(ctx.io.color(`\n✨ Project "${name}" created successfully!`, 'green'))

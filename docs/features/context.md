@@ -84,7 +84,7 @@ run({ env }) {
 
 ## Config
 
-The `config` object contains Watson configuration:
+The `config` object contains CTI configuration:
 
 ```typescript
 export interface Config {

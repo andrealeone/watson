@@ -1,14 +1,14 @@
 ## Contributing Guide
 
-Watson is still in early development. Contributions are welcome and needed. This guide covers how to contribute.
+CTI is still in early development. Contributions are welcome and needed. This guide covers how to contribute.
 
 ### Getting Started
 
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/andrealeone/watson2.git
-cd watson2
+git clone https://github.com/andrealeone/cti.git
+cd cti
 ```
 
 #### 2. Install Dependencies
@@ -216,7 +216,7 @@ We chose this approach because...
 
 #### Principles
 
-Watson values:
+CTI values:
 
 1. **Minimalism** — Include only what's needed
 2. **Explicitness** — No magic, no hidden conventions
@@ -309,6 +309,35 @@ This would help users remember what they did.
 
 ````
 
+### Testing Locally with `bun link`
+
+To test your local changes in another project before submitting a PR, use `bun link`:
+
+1. **Link the package** in the CTI repository:
+
+```bash
+bun link
+```
+
+2. **Use the linked package** in your test project:
+
+```bash
+cd /path/to/your/project
+
+bun link cti
+```
+
+3. **Verify your changes** by running your CLI commands in the test project.
+
+4. **Unlink when done** (optional):
+
+```bash
+bun unlink cti
+bun install     # Reinstall the original version
+```
+
+This ensures your changes work as expected in a real codebase.
+
 ### Getting Help
 
 - **Questions?** Open a discussion or issue
@@ -317,7 +346,7 @@ This would help users remember what they did.
 
 ### Code of Conduct
 
-Watson is inclusive. We welcome:
+CTI is inclusive. We welcome:
 
 - People of all backgrounds
 - Beginners and experts
@@ -383,5 +412,5 @@ Contributors don't need to do this; maintainers handle releases.
 - Join discussions
 - Reach out directly
 
-Thank you for contributing to Watson!
+Thank you for contributing to CTI!
 ```

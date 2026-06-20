@@ -1,7 +1,12 @@
 {
-  "name": "watson-api-client",
+  "name": "cti-demo-api-client",
   "version": "1.0.0",
-  "description": "Environment-aware API client CLI built with Watson",
+  "description": "Environment-aware API client CLI built with CTI",
+  "keywords": [
+    "cti",
+    "demo",
+    "cli"
+  ],
   "type": "module",
   "scripts": {
     "dev": "bun run ./src/cli.ts",

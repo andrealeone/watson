@@ -1,10 +1,10 @@
 ## Core Concepts
 
-Watson's conceptual model is deliberately small. Understand these ideas and you understand the framework.
+CTI's conceptual model is deliberately small. Understand these ideas and you understand the framework.
 
 ### Commands
 
-A **command** is the basic unit of work in Watson. It's a module that receives parsed arguments and a context object.
+A **command** is the basic unit of work in CTI. It's a module that receives parsed arguments and a context object.
 
 ```typescript
 const deployCommand = {
@@ -58,7 +58,7 @@ interface ManifestEntry {
 }
 ```
 
-The manifest is Watson's internal contract. It maps command names to modules, allowing lazy loading (only load a command when it's invoked).
+The manifest is CTI's internal contract. It maps command names to modules, allowing lazy loading (only load a command when it's invoked).
 
 ### Runtime
 
@@ -82,7 +82,7 @@ process.exit(await run(manifest, config))
 
 ### Flags and Arguments
 
-Watson distinguishes between **flags** (named options) and **positionals** (ordered arguments).
+CTI distinguishes between **flags** (named options) and **positionals** (ordered arguments).
 
 ```bash
 my-cli deploy --environment=prod --verbose src/ dist/
@@ -118,7 +118,7 @@ Positionals are accessed dynamically: `ctx.positionals[0]`, `ctx.positionals[1]`
 
 **Configuration** is the `Config` object you pass to `run()`: the CLI's name, bin, version, and any other static data your commands need at runtime.
 
-Watson doesn't impose a loader or enforce where config comes from. Build the object however suits you—a literal, parsed JSON/YAML, or environment variables—and hand it to `run`.
+CTI doesn't impose a loader or enforce where config comes from. Build the object however suits you—a literal, parsed JSON/YAML, or environment variables—and hand it to `run`.
 
 ```typescript
 const config: Config = { name: 'my-cli', bin: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
@@ -160,4 +160,4 @@ When a user invokes your CLI:
 6. **I/O** — Command uses `ctx.io` to interact with the user
 7. **Exit** — Process exits with status code (0 = success, non-zero = error)
 
-That's the entire flow. Understand it, and you understand Watson.
+That's the entire flow. Understand it, and you understand CTI.

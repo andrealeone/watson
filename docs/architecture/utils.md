@@ -1,6 +1,6 @@
 ## Utilities Module
 
-The utilities module provides helper functions for common tasks across Watson. These are low-level, stateless utilities that other modules depend on.
+The utilities module provides helper functions for common tasks across CTI. These are low-level, stateless utilities that other modules depend on.
 
 ### Organization
 
@@ -47,7 +47,7 @@ export function coerceValue(value: unknown, spec: FlagSpec): unknown {
 
 **Design:**
 
-- **Minimal.** Only handles the three types Watson supports
+- **Minimal.** Only handles the three types CTI supports
 - **Strict.** Invalid numbers throw errors
 - **Transparent.** Booleans already come from parseArgs; strings pass through unchanged
 
@@ -80,7 +80,7 @@ coerceValue('hello', { type: 'string' })
 
 #### Why Not More Complex Coercion?
 
-Watson could support:
+CTI could support:
 
 - Date parsing (string → Date)
 - Regex parsing (string → RegExp)
@@ -105,7 +105,7 @@ const createCommand = {
 }
 ```
 
-Handlers are responsible for semantic coercion. Watson handles type coercion.
+Handlers are responsible for semantic coercion. CTI handles type coercion.
 
 #### Error Handling
 
@@ -125,7 +125,7 @@ The router (or bootstrap code) catches these and displays a user-friendly error 
 
 #### Purpose
 
-Watson needs to know if stdout is interactive (a TTY) or piped (not a TTY). This affects:
+CTI needs to know if stdout is interactive (a TTY) or piped (not a TTY). This affects:
 
 - **Colour output** — Disable colours when piping to a file
 - **Spinners** — Don't animate in non-interactive contexts
@@ -158,7 +158,7 @@ export function isTTY(): boolean {
 
 #### Conventions
 
-Watson respects two POSIX conventions:
+CTI respects two POSIX conventions:
 
 - **[NO_COLOR](https://no-color.org/)** — Opt-out of all colour
 - **FORCE_COLOR** — Used by many tools to force colour in CI environments
@@ -203,7 +203,7 @@ $ NO_COLOR=1 my-cli deploy
 
 #### Why Detect TTY at Runtime?
 
-Watson could require a flag: `--no-colour`. But detection is better because:
+CTI could require a flag: `--no-colour`. But detection is better because:
 
 - **Zero configuration** — Works correctly by default
 - **User-friendly** — Colours appear naturally in terminals

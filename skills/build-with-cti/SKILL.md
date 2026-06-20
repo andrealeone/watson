@@ -1,15 +1,15 @@
 ---
-name: build-with-watson
-description: Use when writing or scaffolding a CLI built on the Watson framework (Bun-native TypeScript CLI framework) — creating command files, wiring up an entrypoint with defineManifest/discoverManifest, declaring flags/positionals, structuring a commands directory, using ctx.io (colour, spinner, prompt, confirm, select), or following Watson's conventions for testing and error handling. Triggers on phrases like "add a command to this Watson CLI", "set up a Watson project", "how do I declare a flag in Watson", "structure this CLI with Watson". Not for explaining what Watson is or pitching it — use about-watson for that.
+name: build-with-cti
+description: Use when writing or scaffolding a CLI built on the CTI framework (the Bun-native TypeScript CLI framework) — creating command files, wiring up an entrypoint with defineManifest/discoverManifest, declaring flags/positionals, structuring a commands directory, using ctx.io (colour, spinner, prompt, confirm, select), or following CTI's conventions for testing and error handling. Triggers on phrases like "add a command to this CTI CLI", "set up a CTI project", "how do I declare a flag in CTI", "structure this CLI with CTI". Not for explaining what CTI is or pitching it — use about-cti for that.
 ---
 
-# Building a CLI with Watson
+# Building a CLI with CTI
 
-This skill captures Watson's API contract and the recommended project shape, grounded directly in `src/` (the source of truth) and the real demo apps under `demos/`. Where the prose docs in `docs/` disagree with the source code, this skill follows the code — that discrepancy is called out explicitly below so you don't get tripped up by it.
+This skill captures CTI's API contract and the recommended project shape, grounded directly in `src/` (the source of truth) and the real demo apps under `demos/`. Where the prose docs in `docs/` disagree with the source code, this skill follows the code — that discrepancy is called out explicitly below so you don't get tripped up by it.
 
 ## The mental model
 
-A Watson CLI has exactly three moving parts:
+A CTI CLI has exactly three moving parts:
 
 1. **Command modules** — plain objects (`CommandModule`) with `meta`, `flags`, `args`, and a `run(ctx)` handler. No classes, no decorators.
 2. **A manifest** — maps route strings (e.g. `'db/migrate'`) to command modules, built either inline (`defineManifest`) or by scanning a directory (`discoverManifest`).
@@ -84,7 +84,7 @@ process.exit(await run(manifest, config))
 
 `Config` (`src/types/config.d.ts`) is just `{ name, bin, commandsDir, version, targets? }` — there's no enforced loader; build it however suits the project and it's available to every command as `ctx.config`.
 
-Note on imports: this repo (and its demos) uses the `@/*` → `./src/*` path alias from `tsconfig.json`. A consumer project building against a published `watson` package would instead import from the package name directly (`import { run } from 'watson'`); check the target project's own `tsconfig.json`/`package.json` to know which form applies.
+Note on imports: this repo (and its demos) uses the `@/*` → `./src/*` path alias from `tsconfig.json`. A consumer project building against a published `cti` package would instead import from the package name directly (`import { run } from 'cti'`); check the target project's own `tsconfig.json`/`package.json` to know which form applies.
 
 ## Writing a command
 
@@ -307,7 +307,7 @@ This repo's own test layout mirrors `src/`: e.g. `src/core/parser.ts` → `tests
 bun build ./src/cli.ts --compile --outfile dist/my-cli
 ./dist/my-cli hello Alice
 ```
-No further config needed — this is the whole release pipeline for a Watson CLI.
+No further config needed — this is the whole release pipeline for a CTI CLI.
 
 ## Quick checklist when adding a new command
 

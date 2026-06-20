@@ -1,11 +1,11 @@
-# Watson CLI Demos
+# CTI CLI Demos
 
-A collection of example CLIs built with Watson, each demonstrating a different
+A collection of example CLIs built with CTI, each demonstrating a different
 feature or pattern. They are validated end-to-end by `tests/demos/demos.test.ts`.
 
 ## The real API at a glance
 
-A Watson command is a **`CommandModule`** — a plain object with optional `meta`,
+A CTI command is a **`CommandModule`** — a plain object with optional `meta`,
 `flags`, `args`, and a `run(ctx)` function. Commands are mapped to routes in a
 **manifest**, and the **`run()`** dispatcher resolves argv → command, parses flags,
 builds the `Context`, and calls `run`. Return a number from `run` to set the exit code.
@@ -82,7 +82,7 @@ bun build ./src/cli.ts --compile --outfile dist/hello
 ## A few examples
 
 ```bash
-# todo-app — state lives in ~/.watson-todos.json
+# todo-app — state lives in ~/.cti-todos.json
 bun run ./demos/todo-app/src/cli.ts add "Buy groceries"
 bun run ./demos/todo-app/src/cli.ts list
 bun run ./demos/todo-app/src/cli.ts complete 1
@@ -138,7 +138,7 @@ For a discovery-based demo with multiple commands, create files in `commands/` (
 
 ## Feature Showcase
 
-**Core Watson features demonstrated across demos:**
+**Core CTI features demonstrated across demos:**
 
 - **CommandModule**: `hello-world`, all demos
 - **Nested routes**: `api-client` (users/list, posts/list)

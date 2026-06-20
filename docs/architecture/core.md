@@ -1,6 +1,6 @@
 ## Core Module: Runtime & Parser
 
-The core module is Watson's command dispatch engine. It's where user input becomes command execution.
+The core module is CTI's command dispatch engine. It's where user input becomes command execution.
 
 ### Architecture
 
@@ -135,7 +135,7 @@ Internally, it:
 
 #### Parsing Strategy
 
-Watson uses Node.js's built-in `parseArgs` from `util`:
+CTI uses Node.js's built-in `parseArgs` from `util`:
 
 **Why Node's parseArgs?**
 

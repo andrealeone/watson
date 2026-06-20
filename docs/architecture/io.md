@@ -1,6 +1,6 @@
 ## I/O System
 
-Watson's I/O module provides primitives for terminal interaction. These are the building blocks of user-friendly CLIs.
+CTI's I/O module provides primitives for terminal interaction. These are the building blocks of user-friendly CLIs.
 
 ### Overview
 
@@ -107,7 +107,7 @@ export function colourize(text: string, colour: Colour): string {
 
 **Why not RGB or true colour?**
 
-Watson prioritises simplicity. Eight semantic colours (red for error, green for success, etc.) are enough. If you need more, you can use ANSI codes directly in your strings.
+CTI prioritises simplicity. Eight semantic colours (red for error, green for success, etc.) are enough. If you need more, you can use ANSI codes directly in your strings.
 
 #### TTY Detection
 
@@ -144,7 +144,7 @@ export function createSpinner(_text: string): SpinnerHandle {
 }
 ```
 
-**This is a stub.** Watson's current implementation is a placeholder. Future versions will implement:
+**This is a stub.** CTI's current implementation is a placeholder. Future versions will implement:
 
 ```typescript
 export function createSpinner(text: string): SpinnerHandle {
@@ -170,7 +170,7 @@ export function createSpinner(text: string): SpinnerHandle {
 
 #### Design Rationale
 
-**Why a stub for now?** Because Watson is being built incrementally. The interface is solid; the implementation will follow.
+**Why a stub for now?** Because CTI is being built incrementally. The interface is solid; the implementation will follow.
 
 When fully implemented, the spinner will:
 
@@ -247,7 +247,7 @@ Users can replace the logger with their own (Winston, Pino, etc.) if needed.
 
 #### Keep It Simple
 
-Watson's I/O primitives are:
+CTI's I/O primitives are:
 
 - **Thin wrappers** around process.stdout, stdin, ANSI codes
 - **Stateless where possible** (colours, colouring functions are pure)
@@ -263,7 +263,7 @@ This means:
 
 ANSI codes are built into terminals. Spinners and prompts are straightforward to implement. Why add a dependency?
 
-If you want a rich terminal UI (tables, layouts, etc.), you can use a library alongside Watson. Watson doesn't prevent that.
+If you want a rich terminal UI (tables, layouts, etc.), you can use a library alongside CTI. CTI doesn't prevent that.
 
 #### Respect the Environment
 
@@ -277,7 +277,7 @@ This makes CLIs well-behaved in all contexts: interactive shells, CI pipelines, 
 
 ### Future Evolution
 
-Watson's I/O system will likely gain:
+CTI's I/O system will likely gain:
 
 - **Full prompt implementation** — Text input, selection, yes/no
 - **Spinner animation** — Real loading indicators

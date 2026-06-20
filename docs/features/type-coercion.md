@@ -1,10 +1,10 @@
 # Type Coercion
 
-Watson automatically converts parsed string values into their declared types. The coercion layer ensures type safety without manual casting.
+CTI automatically converts parsed string values into their declared types. The coercion layer ensures type safety without manual casting.
 
 ## How Coercion Works
 
-Since Node's `parseArgs` only handles `string` and `boolean` types, Watson adds a coercion layer that:
+Since Node's `parseArgs` only handles `string` and `boolean` types, CTI adds a coercion layer that:
 
 1. Tokenizes arguments using `parseArgs`
 2. Reads the declared flag type from the command module
@@ -56,7 +56,7 @@ flags: {
 }
 ```
 
-The default value `5000` is a number and stays a number; Watson never coerces defaults.
+The default value `5000` is a number and stays a number; CTI never coerces defaults.
 
 ## Error on Invalid Coercion
 
