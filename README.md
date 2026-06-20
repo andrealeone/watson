@@ -14,12 +14,12 @@ There are no configuration files to maintain and no wiring code to write. The fr
 
 ### Features
 
-- **No Boilerplate**  No manual imports or routing logic, just files in a `commands` directory.
-- **Typed Arguments**  Flags and positionals are declared once and arrive in your handler already parsed, coerced, and typed.
-- **Zero-Config**:  CTI reads your `package.json` and discovers commands from the filesystem; nothing to wire up by hand.
-- **Lightweight**  No runtime dependencies; the framework is the only thing in your `node_modules` that's CTI.
-- **Bun-Optimised**  Lean on Bun's speed and native TypeScript.
-- **Compiles to Binary**  Ship your CLI as a single standalone executable with `bun build --compile`.
+- **No Boilerplate** No manual imports or routing logic, just files in a `commands` directory.
+- **Typed Arguments** Flags and positionals are declared once and arrive in your handler already parsed, coerced, and typed.
+- **Zero-Config**: CTI reads your `package.json` and discovers commands from the filesystem; nothing to wire up by hand.
+- **Lightweight** No runtime dependencies; the framework is the only thing in your `node_modules` that's CTI.
+- **Bun-Optimised** Lean on Bun's speed and native TypeScript.
+- **Compiles to Binary** Ship your CLI as a single standalone executable with `bun build --compile`.
 
 <br/><br/>
 
@@ -39,8 +39,7 @@ files, dropped in as your CLI grows:
 
 ```
 new-cli/
-├── src/
-│   └── cli.ts   ← written once, never touched again
+├── main.ts      ← written once, never touched again
 └── commands/
     └── fib.ts   ← app fib
 ```
@@ -70,7 +69,7 @@ export default command({
 The `flags` block is enough to get a typed, validated `--sequence` toggle
 in `ctx.flags`. No manual parsing, no wiring it into a parser yourself.
 
-Create `src/cli.ts`:
+Create `main.ts`:
 
 ```typescript
 import { run } from './core/runtime'
@@ -86,8 +85,8 @@ process.exit(await run(config, import.meta))
 ```
 
 That's the whole entrypoint, and it's the last time you'll edit it. CTI automatically
-discovers commands from the `commands` directory, turns `fib.ts` into the `fib` route, 
-parses argv against its declared flags, and dispatches — automatically, on every run. 
+discovers commands from the `commands` directory, turns `fib.ts` into the `fib` route,
+parses argv against its declared flags, and dispatches — automatically, on every run.
 Add a second file and `app second-command` exists with no further wiring. See
 [Command Routing](docs/features/command-routing.md) for how the file
 structure maps to commands. Prefer to list commands by hand instead of
@@ -98,17 +97,17 @@ relying on the filesystem? See
 Run it:
 
 ```bash
-bun run ./src/cli.ts fib 10
+bun run ./main.ts fib 10
 # Output: 55
 
-bun run ./src/cli.ts fib 10 --sequence
+bun run ./main.ts fib 10 --sequence
 # Output: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55
 ```
 
 Compile it to a standalone binary:
 
 ```bash
-bun build ./src/cli.ts --compile --outfile dist/my-cli
+bun build ./main.ts --compile --outfile dist/my-cli
 ./dist/my-cli fib 10 --sequence
 ```
 
