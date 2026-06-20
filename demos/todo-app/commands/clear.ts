@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { loadTodos, saveTodos } from '../src/state'
+import { command } from 'cti/src/core/command'
+import { loadTodos, saveTodos } from '../lib/state'
 
 export default command({
   meta: { description: 'Delete all completed TODOs' },

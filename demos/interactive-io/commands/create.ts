@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { loadProfiles, saveProfiles, generateId } from '../src/storage'
+import { command } from 'cti/src/core/command'
+import { loadProfiles, saveProfiles, generateId } from '../lib/storage'
 
 const ROLES = ['admin', 'user', 'viewer'] as const
 

@@ -1,6 +1,6 @@
-import type { Config } from '@/types/config'
-import { discoverManifest } from '@/core/discovery'
-import { run } from '@/core/runtime'
+import type { Config } from 'cti/src/types/config'
+import { discoverManifest } from 'cti/src/core/discovery'
+import { run } from 'cti/src/core/runtime'
 import { join } from 'node:path'
 
 const config: Config = {

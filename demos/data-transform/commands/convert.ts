@@ -1,6 +1,6 @@
-import { command } from '@/core/command'
+import { command } from 'cti/src/core/command'
 import { readFileSync } from 'node:fs'
-import { parseCSV, toCSV, toTable, type Row } from '../formats'
+import { parseCSV, toCSV, toTable, type Row } from '../lib/formats'
 
 export default command({
   meta: { description: 'Convert a file between csv and json' },

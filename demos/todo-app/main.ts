@@ -1,9 +1,9 @@
-import type { Config } from '@/types/config'
-import { run } from '@/core/runtime'
-import { discoverManifest } from '@/core/discovery'
+import type { Config } from 'cti/src/types/config'
+import { run } from 'cti/src/core/runtime'
+import { discoverManifest } from 'cti/src/core/discovery'
 import { join } from 'node:path'
 
-const commandsDir = join(import.meta.dir, '..', 'commands')
+const commandsDir = join(import.meta.dir, 'commands')
 
 const manifest = await discoverManifest(commandsDir)
 

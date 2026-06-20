@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { mutateById } from '../src/state'
+import { command } from 'cti/src/core/command'
+import { mutateById } from '../lib/state'
 
 export default command({
   meta: { description: 'Delete a TODO item' },

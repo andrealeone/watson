@@ -1,6 +1,6 @@
-import type { Config } from '@/types/config'
-import { command } from '@/core/command'
-import { defineManifest, run } from '@/core/runtime'
+import type { Config } from 'cti/src/types/config'
+import { command } from 'cti/src/core/command'
+import { defineManifest, run } from 'cti/src/core/runtime'
 
 const hello = command({
   meta: { description: 'Greet someone' },

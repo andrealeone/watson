@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { DATA, baseUrl, emit } from '../../src/utils'
+import { command } from 'cti/src/core/command'
+import { DATA, baseUrl, emit } from '../../lib/utils'
 
 export default command({
   meta: { description: 'List users' },
