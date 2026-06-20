@@ -72,8 +72,8 @@ in `ctx.flags`. No manual parsing, no wiring it into a parser yourself.
 Create `main.ts`:
 
 ```typescript
-import { run } from './core/runtime'
-import type { Config } from './types/config'
+import { run } from 'cti/src/core/runtime'
+import type { Config } from 'cti/src/types/config'
 
 const config: Config = {
   name: 'new-cli',
