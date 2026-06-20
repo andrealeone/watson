@@ -68,7 +68,7 @@ const hello = command({
 })
 
 const manifest = defineManifest({ hello })
-const config: Config = { name: 'my-cli', bin: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 
@@ -82,7 +82,7 @@ import { join } from 'node:path'
 
 const commandsDir = join(import.meta.dir, '..', 'commands')
 const manifest = await discoverManifest(commandsDir)
-const config: Config = { name: 'my-cli', bin: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 
@@ -313,7 +313,7 @@ test('runs successfully', async () => {
     route: ['mycommand'],
     cwd: '/tmp',
     env: {},
-    config: { name: 'x', bin: 'x', commandsDir: 'commands', version: '1.0.0' },
+    config: { name: 'x', commandsDir: 'commands', version: '1.0.0' },
     io: {
       /* mock the Io methods you actually call */
     } as Io,

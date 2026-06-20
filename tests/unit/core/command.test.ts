@@ -124,7 +124,6 @@ describe('command', () => {
       env: process.env as Record<string, string | undefined>,
       config: {
         name: 'test',
-        bin: 'test',
         commandsDir: '.',
         version: '1.0.0',
       },

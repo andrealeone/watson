@@ -34,7 +34,7 @@ const hello: CommandModule = {
 }
 
 const manifest = defineManifest({ hello })
-const config: Config = { name: 'demo', bin: 'demo', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'demo', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 

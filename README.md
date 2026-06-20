@@ -77,7 +77,6 @@ import type { Config } from 'cti/src/types/config'
 
 const config: Config = {
   name: 'new-cli',
-  bin: 'new-cli',
   version: '1.0.0',
 }
 

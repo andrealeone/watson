@@ -69,7 +69,9 @@ export async function run(
     config = configOrManifest
     const importMeta = configOrImportMeta as { dir?: string } | undefined
     if (!importMeta?.dir) {
-      console.error('Error: run(config, import.meta, argv?) requires passing import.meta (with a dir) as the second argument.')
+      console.error(
+        'Error: run(config, import.meta, argv?) requires passing import.meta (with a dir) as the second argument.',
+      )
       return 1
     }
     resolvedArgv = argv ?? Bun.argv.slice(2)
@@ -100,6 +102,11 @@ export async function run(
 
   const io = createIo(),
     logger = createLogger()
+
+  // Use name as default for bin if not provided
+  if (!config.bin) {
+    config.bin = config.name
+  }
 
   const match = resolveRoute(resolvedArgv, buildRouteLookup(manifest))
 

@@ -178,14 +178,14 @@ The manifest maps routes to command modules and their lazy `importer`. It is bui
 ```typescript
 interface Config {
   name: string
-  bin: string
+  bin?: string
   commandsDir: string
   version: string
   targets?: string[]
 }
 ```
 
-Application configuration. Minimal; you can extend this with your own properties.
+Application configuration. Minimal; you can extend this with your own properties. If `bin` is not provided, it defaults to `name`.
 
 ### Design Decisions
 

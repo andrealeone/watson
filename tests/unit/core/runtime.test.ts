@@ -109,7 +109,6 @@ describe('run', () => {
 
     config = {
       name: 'test-cli',
-      bin: 'test',
       commandsDir: './commands',
       version: '1.0.0',
     }

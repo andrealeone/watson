@@ -164,7 +164,7 @@ Internal manifest used by the router for command discovery.
 ```typescript
 interface Config {
   name: string
-  bin: string
+  bin?: string
   commandsDir: string
   version: string
   targets?: string[]
@@ -339,6 +339,6 @@ const hello: CommandModule = {
 }
 
 const manifest = defineManifest({ hello })
-const config: Config = { name: 'demo', bin: 'demo', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'demo', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```

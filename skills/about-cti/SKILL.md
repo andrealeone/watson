@@ -80,7 +80,7 @@ const hello: CommandModule = {
 }
 
 const manifest = defineManifest({ hello })
-const config: Config = { name: 'my-cli', bin: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 
