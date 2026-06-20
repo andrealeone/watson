@@ -64,7 +64,7 @@ The manifest is CTI's internal contract. It maps command names to modules, allow
 
 The **runtime** is the entry point of your CLI. The `run()` dispatcher:
 
-1. Accepts a manifest of available commands and your config
+1. Accepts your config, which carries (or points to) a manifest of available commands
 2. Resolves the command to invoke (longest-prefix match)
 3. Loads the matched command module lazily
 4. Parses and coerces incoming arguments
@@ -74,11 +74,11 @@ The **runtime** is the entry point of your CLI. The `run()` dispatcher:
 ```typescript
 import { defineManifest, run } from './core/runtime'
 
-const manifest = defineManifest({ hello, goodbye })
-process.exit(await run(manifest, config))
+const config: Config = { ...baseConfig, manifest: defineManifest({ hello, goodbye }) }
+void run(config)
 ```
 
-`defineManifest` maps slash-delimited routes (`'users/list'`) to command modules; `run` does the dispatch. Route resolution and parsing live in the `router` and `parser` modules, which `run` composes.
+`defineManifest` maps slash-delimited routes (`'users/list'`) to command modules and is assigned to `config.manifest`; `run` does the dispatch. Route resolution and parsing live in the `router` and `parser` modules, which `run` composes.
 
 ### Flags and Arguments
 
@@ -116,13 +116,13 @@ Positionals are accessed dynamically: `ctx.positionals[0]`, `ctx.positionals[1]`
 
 ### Configuration
 
-**Configuration** is the `Config` object you pass to `run()`: the CLI's name, bin, version, and any other static data your commands need at runtime.
+**Configuration** is the `Config` object you pass to `run()`: the CLI's name, bin, version, manifest (or `commandsDir` to discover one), and any other static data your commands need at runtime.
 
 CTI doesn't impose a loader or enforce where config comes from. Build the object however suits you—a literal, parsed JSON/YAML, or environment variables—and hand it to `run`.
 
 ```typescript
-const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
-process.exit(await run(manifest, config))
+const config: Config = { name: 'my-cli', version: '1.0.0', manifest: defineManifest({ hello }) }
+void run(config)
 ```
 
 Configuration is then available to every command via `ctx.config`.

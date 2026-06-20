@@ -90,9 +90,10 @@ The `config` object contains CTI configuration:
 export interface Config {
   name: string // CLI name from package.json
   bin?: string // Entrypoint binary name (defaults to name if not provided)
-  commandsDir: string // Commands directory path
+  commandsDir?: string // Commands directory path, used when manifest isn't set
   version: string // Version from package.json
   targets?: string[] // Compile targets
+  manifest?: Manifest // Pre-built manifest; skips discovery when set
 }
 ```
 

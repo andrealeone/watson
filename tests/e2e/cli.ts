@@ -28,16 +28,14 @@ const usersList: CommandModule = {
   },
 }
 
-const manifest = defineManifest({
-  ping,
-  users,
-  'users/list': usersList,
-})
-
 const config: Config = {
   name: 'cti',
-  commandsDir: 'commands',
   version: '1.0.0',
+  manifest: defineManifest({
+    ping,
+    users,
+    'users/list': usersList,
+  }),
 }
 
-process.exit(await run(manifest, config))
+process.exit(await run(config))

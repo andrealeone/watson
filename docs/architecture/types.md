@@ -179,13 +179,14 @@ The manifest maps routes to command modules and their lazy `importer`. It is bui
 interface Config {
   name: string
   bin?: string
-  commandsDir: string
+  commandsDir?: string
   version: string
   targets?: string[]
+  manifest?: Manifest
 }
 ```
 
-Application configuration. Minimal; you can extend this with your own properties. If `bin` is not provided, it defaults to `name`.
+Application configuration. Minimal; you can extend this with your own properties. If `bin` is not provided, it defaults to `name`. If `manifest` is set, `run()` uses it directly instead of discovering one from `commandsDir`.
 
 ### Design Decisions
 

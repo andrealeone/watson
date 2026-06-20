@@ -1,5 +1,5 @@
-import { join, dirname } from 'node:path'
 import { existsSync } from 'node:fs'
+import { join, dirname } from 'node:path'
 
 import type { Config } from '@/types/config'
 import type { Context } from '@/types/context'
@@ -7,9 +7,9 @@ import type { Manifest } from '@/types/manifest'
 import type { CommandModule } from '@/types/command'
 
 import { parseAndCoerce } from '@/core/parser'
+import { discoverManifest } from '@/core/discovery'
 import { buildRouteLookup, resolveRoute } from '@/core/router'
 import { createIo, createLogger } from '@/io/index'
-import { discoverManifest } from '@/core/discovery'
 
 /**
  * Build a Manifest from a flat map of `route -> command module`.
@@ -31,50 +31,44 @@ export function defineManifest(routes: Record<string, CommandModule>): Manifest 
 }
 
 /**
- * Dispatch a command from an automatically discovered manifest.
- * The manifest is discovered from the commandsDir in config, resolved relative
- * to the caller's location (import.meta.dir).
+ * Dispatch a command using `config.manifest` if present, otherwise auto-discover
+ * one from `config.commandsDir`, resolved relative to the caller's location
+ * (`importMeta.dir`). `importMeta` is only required when discovery is needed.
+ *
+ * Sets `process.exitCode` to the resolved code so entrypoints can just call
+ * `void run(config)` instead of `process.exit(await run(config))`. This only
+ * happens when `argv` is omitted (the entrypoint case); callers passing an
+ * explicit `argv` (e.g. tests) get the exit code back without the side effect.
  */
 export async function run(
   config: Config,
-  importMeta: { dir: string },
-  argv?: string[],
-): Promise<number>
-
-/**
- * Dispatch a command from an explicit manifest.
- * Kept for backwards compatibility and for tests that build manifests inline.
- */
-export async function run(manifest: Manifest, config: Config, argv?: string[]): Promise<number>
-
-export async function run(
-  configOrManifest: Config | Manifest,
-  configOrImportMeta?: Config | { dir: string },
+  importMeta?: { dir: string },
   argv?: string[],
 ): Promise<number> {
-  // Determine if we received (manifest, config, argv) or (config, import.meta, argv)
-  const isFirstArgManifest = 'entries' in configOrManifest
+  const exitCode = await dispatch(config, importMeta, argv)
 
+  if (argv === undefined) process.exitCode = exitCode
+
+  return exitCode
+}
+
+async function dispatch(
+  config: Config,
+  importMeta?: { dir: string },
+  argv?: string[],
+): Promise<number> {
   let manifest: Manifest
-  let config: Config
-  let resolvedArgv: string[]
 
-  if (isFirstArgManifest) {
-    // Old signature: (manifest, config, argv)
-    manifest = configOrManifest
-    config = configOrImportMeta as Config
-    resolvedArgv = argv ?? Bun.argv.slice(2)
+  if (config.manifest) {
+    manifest = config.manifest
   } else {
-    // New signature: (config, import.meta, argv)
-    config = configOrManifest
-    const importMeta = configOrImportMeta as { dir?: string } | undefined
     if (!importMeta?.dir) {
       console.error(
-        'Error: run(config, import.meta, argv?) requires passing import.meta (with a dir) as the second argument.',
+        'Error: discovering commands from config.commandsDir requires passing import.meta (with a dir) as the second argument to run().',
       )
+
       return 1
     }
-    resolvedArgv = argv ?? Bun.argv.slice(2)
 
     // Auto-discover manifest from config.commandsDir
     const commandsDir = config.commandsDir ?? 'commands'
@@ -83,11 +77,10 @@ export async function run(
     // If commands dir doesn't exist, try looking in the parent directory
     // (handles case where CLI entrypoint is in a subdirectory but commands is at the project root)
     if (!existsSync(resolvedCommandsDir)) {
-      const parentDir = dirname(importMeta.dir)
-      const parentCommandsDir = join(parentDir, commandsDir)
-      if (existsSync(parentCommandsDir)) {
-        resolvedCommandsDir = parentCommandsDir
-      }
+      const parentDir = dirname(importMeta.dir),
+        parentCommandsDir = join(parentDir, commandsDir)
+
+      if (existsSync(parentCommandsDir)) resolvedCommandsDir = parentCommandsDir
     }
 
     try {
@@ -100,13 +93,13 @@ export async function run(
     }
   }
 
+  const resolvedArgv = argv ?? Bun.argv.slice(2)
+
   const io = createIo(),
     logger = createLogger()
 
   // Use name as default for bin if not provided
-  if (!config.bin) {
-    config.bin = config.name
-  }
+  if (!config.bin) config.bin = config.name
 
   const match = resolveRoute(resolvedArgv, buildRouteLookup(manifest))
 

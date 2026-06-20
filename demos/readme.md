@@ -22,9 +22,8 @@ const hello: CommandModule = {
   },
 }
 
-const manifest = defineManifest({ hello })
-const config: Config = { name: 'demo', commandsDir: 'commands', version: '1.0.0' }
-run(manifest, config).then((code) => process.exit(code))
+const config: Config = { name: 'demo', version: '1.0.0', manifest: defineManifest({ hello }) }
+run(config).then((code) => process.exit(code))
 ```
 
 The `Context` passed to every command exposes:

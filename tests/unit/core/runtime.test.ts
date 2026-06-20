@@ -114,6 +114,10 @@ describe('run', () => {
     }
   })
 
+  function dispatch(manifest: Manifest, argv: string[]): Promise<number> {
+    return run({ ...config, manifest }, undefined, argv)
+  }
+
   function createTestManifest(
     route: string[],
     sourcePath: string,
@@ -149,7 +153,7 @@ describe('run', () => {
       return Promise.resolve(runFn(ctx))
     })
 
-    const result = await run(manifest, config, ['hello'])
+    const result = await dispatch(manifest, ['hello'])
 
     expect(result).toBe(0)
     expect(runFn).toHaveBeenCalled()
@@ -158,7 +162,7 @@ describe('run', () => {
   test('returns 1 when command is not found', async () => {
     const manifest: Manifest = { entries: [] }
 
-    const result = await run(manifest, config, ['unknown'])
+    const result = await dispatch(manifest, ['unknown'])
 
     expect(result).toBe(1)
   })
@@ -166,7 +170,7 @@ describe('run', () => {
   test('returns 1 for empty argv', async () => {
     const manifest: Manifest = { entries: [] }
 
-    const result = await run(manifest, config, [])
+    const result = await dispatch(manifest, [])
 
     expect(result).toBe(1)
   })
@@ -193,7 +197,7 @@ describe('run', () => {
       ],
     }
 
-    await run(manifest, config, ['cmd', '--verbose'])
+    await dispatch(manifest, ['cmd', '--verbose'])
     expect(runFn).toHaveBeenCalled()
   })
 
@@ -207,7 +211,7 @@ describe('run', () => {
       return Promise.resolve(runFn(ctx))
     })
 
-    await run(manifest, config, ['cmd', 'arg1', 'arg2'])
+    await dispatch(manifest, ['cmd', 'arg1', 'arg2'])
     expect(runFn).toHaveBeenCalled()
   })
 
@@ -220,7 +224,7 @@ describe('run', () => {
       }),
     )
 
-    await run(manifest, config, ['users', 'list'])
+    await dispatch(manifest, ['users', 'list'])
   })
 
   test('includes config in context', async () => {
@@ -228,11 +232,13 @@ describe('run', () => {
       ['cmd'],
       'cmd.ts',
       createContextTest((ctx: Context) => {
-        expect(ctx.config).toBe(config)
+        expect(ctx.config).toBe(configWithManifest)
       }),
     )
 
-    await run(manifest, config, ['cmd'])
+    const configWithManifest: Config = { ...config, manifest }
+
+    await run(configWithManifest, undefined, ['cmd'])
   })
 
   test('includes io and logger in context', async () => {
@@ -247,7 +253,7 @@ describe('run', () => {
       }),
     )
 
-    await run(manifest, config, ['cmd'])
+    await dispatch(manifest, ['cmd'])
   })
 
   test('includes cwd in context', async () => {
@@ -260,7 +266,7 @@ describe('run', () => {
       }),
     )
 
-    await run(manifest, config, ['cmd'])
+    await dispatch(manifest, ['cmd'])
   })
 
   test('includes environment variables in context', async () => {
@@ -273,7 +279,7 @@ describe('run', () => {
       }),
     )
 
-    await run(manifest, config, ['cmd'])
+    await dispatch(manifest, ['cmd'])
   })
 
   test('handles command returning undefined', async () => {
@@ -287,7 +293,7 @@ describe('run', () => {
       ],
     }
 
-    const result = await run(manifest, config, ['cmd'])
+    const result = await dispatch(manifest, ['cmd'])
 
     expect(result).toBe(0)
   })
@@ -304,7 +310,7 @@ describe('run', () => {
       ],
     }
 
-    const result = await run(manifest, config, ['cmd'])
+    const result = await dispatch(manifest, ['cmd'])
 
     expect(result).toBe(42)
   })
@@ -327,7 +333,7 @@ describe('run', () => {
       ],
     }
 
-    const result = await run(manifest, config, ['cmd'])
+    const result = await dispatch(manifest, ['cmd'])
 
     expect(result).toBe(1)
   })
@@ -350,7 +356,7 @@ describe('run', () => {
       ],
     }
 
-    const result = await run(manifest, config, ['cmd'])
+    const result = await dispatch(manifest, ['cmd'])
 
     expect(result).toBe(1)
   })
@@ -374,7 +380,7 @@ describe('run', () => {
       ],
     }
 
-    await run(manifest, config, ['users', 'list', 'filter'])
+    await dispatch(manifest, ['users', 'list', 'filter'])
 
     expect(listFn).toHaveBeenCalled()
     expect(usersFn).not.toHaveBeenCalled()
@@ -390,7 +396,7 @@ describe('run', () => {
       return Promise.resolve(runFn(ctx))
     })
 
-    await run(manifest, config, ['users', 'list', 'filter', 'active'])
+    await dispatch(manifest, ['users', 'list', 'filter', 'active'])
     expect(runFn).toHaveBeenCalled()
   })
 
@@ -404,7 +410,7 @@ describe('run', () => {
       return Promise.resolve(runFn(ctx))
     })
 
-    const result = await run(manifest, config, ['cmd', 'positional', 'arg'])
+    const result = await dispatch(manifest, ['cmd', 'positional', 'arg'])
 
     expect(result).toBe(0)
     expect(runFn).toHaveBeenCalled()

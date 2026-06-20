@@ -12,8 +12,8 @@ This skill captures CTI's API contract and the recommended project shape, ground
 A CTI CLI has exactly three moving parts:
 
 1. **Command modules** — plain objects (`CommandModule`) with `meta`, `flags`, `args`, and a `run(ctx)` handler. No classes, no decorators.
-2. **A manifest** — maps route strings (e.g. `'db/migrate'`) to command modules, built either inline (`defineManifest`) or by scanning a directory (`discoverManifest`).
-3. **The runtime** — `run(manifest, config)` resolves argv against the manifest (longest-prefix match), lazily loads the matched command, parses/coerces its flags, builds a `Context`, and invokes `run()`. It returns the process exit code.
+2. **A manifest** — maps route strings (e.g. `'db/migrate'`) to command modules, built either inline (`defineManifest`) or by scanning a directory (`discoverManifest`). Assign it to `config.manifest`, or leave it unset and let `run()` discover one from `config.commandsDir`.
+3. **The runtime** — `run(config, importMeta?)` resolves argv against the manifest (`config.manifest`, or one discovered from `config.commandsDir` relative to `importMeta.dir`) using longest-prefix match, lazily loads the matched command, parses/coerces its flags, builds a `Context`, and invokes `run()`. It returns the process exit code.
 
 Everything else (colour output, spinners, prompts, logging) hangs off the `Context` object passed into every handler.
 
@@ -25,18 +25,18 @@ Two valid shapes, pick based on size:
 
 ```
 my-cli/
-├── main.ts          # entrypoint: defines commands inline, calls defineManifest + run
+├── main.ts          # entrypoint: defines commands inline, builds config.manifest with defineManifest, calls run
 ├── package.json
 └── tsconfig.json
 ```
 
-See `demos/hello-world/main.ts` and `demos/deploy-tool/main.ts` for this pattern — multiple commands defined as local variables, composed with `defineManifest({ deploy, rollback, status })`.
+See `demos/hello-world/main.ts` and `demos/deploy-tool/main.ts` for this pattern — multiple commands defined as local variables, composed with `defineManifest({ deploy, rollback, status })` and assigned to `config.manifest`.
 
 **Larger CLI (many commands) — directory-scanned manifest:**
 
 ```
 my-cli/
-├── main.ts           # entrypoint: discoverManifest(commandsDir) + run
+├── main.ts           # entrypoint: run(config, import.meta) auto-discovers commands/
 ├── state.ts         # shared helpers/state, NOT a command (no default CommandModule export)
 ├── commands/
 │   ├── add.ts           # → my-cli add
@@ -47,7 +47,7 @@ my-cli/
 └── tsconfig.json
 ```
 
-See `demos/todo-app/` for this pattern in full — `main.ts` calls `discoverManifest(join(import.meta.dir, '..', 'commands'))`, and each file under `commands/` exports a default `CommandModule` built with the `command()` helper.
+See `demos/todo-app/` for this pattern in full — `main.ts` calls `run(config, import.meta)` with no `config.manifest` set, so `run()` discovers commands from `config.commandsDir` (default `'commands'`) relative to `import.meta.dir`. Each file under `commands/` exports a default `CommandModule` built with the `command()` helper.
 
 Routing rule (from `src/core/discovery.ts`): every `.ts` file under the commands directory becomes a route that mirrors its file path (`commands/db/migrate.ts` → `db migrate`); a file named `index.ts` collapses into its parent's route (`commands/db/index.ts` → `db`); files matching `*.test.ts` are skipped.
 
@@ -67,26 +67,23 @@ const hello = command({
   },
 })
 
-const manifest = defineManifest({ hello })
-const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
-process.exit(await run(manifest, config))
+const config: Config = { name: 'my-cli', version: '1.0.0', manifest: defineManifest({ hello }) }
+void run(config)
 ```
 
-Directory-scanned manifest (larger CLI):
+Directory-scanned manifest (larger CLI) — pass `import.meta` and let `run()` discover commands from `config.commandsDir`:
 
 ```typescript
 import type { Config } from '@/types/config'
 import { run } from '@/core/runtime'
-import { discoverManifest } from '@/core/discovery'
-import { join } from 'node:path'
 
-const commandsDir = join(import.meta.dir, '..', 'commands')
-const manifest = await discoverManifest(commandsDir)
 const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
-process.exit(await run(manifest, config))
+void run(config, import.meta)
 ```
 
-`Config` (`src/types/config.d.ts`) is just `{ name, bin, commandsDir, version, targets? }` — there's no enforced loader; build it however suits the project and it's available to every command as `ctx.config`.
+(You can also call `discoverManifest(commandsDir)` yourself and assign the result to `config.manifest` — useful if you want to inspect or modify entries before dispatch. Either way, `Manifest` ends up on `config.manifest`.)
+
+`Config` (`src/types/config.d.ts`) is `{ name, version, commandsDir?, targets?, bin?, manifest? }` — there's no enforced loader; build it however suits the project and it's available to every command as `ctx.config`. Set `manifest` directly, or leave it unset and pass `import.meta` to `run()` so it can discover one from `commandsDir`.
 
 Note on imports: this repo (and its demos) uses the `@/*` → `./src/*` path alias from `tsconfig.json`. A consumer project building against a published `cti` package would instead import from the package name directly (`import { run } from 'cti'`); check the target project's own `tsconfig.json`/`package.json` to know which form applies.
 
@@ -280,7 +277,7 @@ run: async (ctx) => {
 }
 ```
 
-**Exit codes are the `run()` return value**, not `process.exit()` calls inside the handler — `run()` in `src/core/runtime.ts` already wraps the dispatch in `process.exit(await run(manifest, config))` at the entrypoint. Return `1` (or any non-zero number) for failure, `0` or `undefined` for success.
+**Exit codes are the `run()` return value** — `run()` (`src/core/runtime.ts`) sets `process.exitCode` to that value internally, so the entrypoint just calls `void run(config)`; no `process.exit()` needed. Return `1` (or any non-zero number) for failure, `0` or `undefined` for success.
 
 **Errors thrown from a handler are caught by the runtime** (`src/core/runtime.ts`) and printed as `Error: <message>` with exit code 1 — you don't need a top-level try/catch purely to avoid a crash, but catch specific, expected errors yourself to give a better message:
 

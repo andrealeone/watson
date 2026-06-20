@@ -8,7 +8,7 @@ CTI does not use magic. There are no hidden conventions, auto-discovery mechanis
 
 - Commands are registered explicitly: `defineManifest({ name: handler })`
 - Configuration is explicit: you build a `Config` object and pass it to `run()`
-- Dispatch is explicit: `run(manifest, config)` resolves argv → command
+- Dispatch is explicit: `run(config)` resolves argv → command, using `config.manifest`
 
 You read CTI code and immediately understand what happens. No searching for decorators or annotation processors.
 
@@ -38,11 +38,14 @@ CTI favours composable primitives over elaborate configuration. Instead of:
 You write:
 
 ```typescript
-const manifest = defineManifest({
-  'auth/login': loginCommand,
-  'auth/logout': logoutCommand,
-})
-process.exit(await run(manifest, config))
+const config: Config = {
+  ...baseConfig,
+  manifest: defineManifest({
+    'auth/login': loginCommand,
+    'auth/logout': logoutCommand,
+  }),
+}
+void run(config)
 ```
 
 Configuration is code. Code is honest.
