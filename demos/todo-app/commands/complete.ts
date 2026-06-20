@@ -1,4 +1,4 @@
-import { command } from 'cti/src/core/command'
+import { command } from 'cti'
 import { mutateById } from '../lib/state'
 
 export default command({

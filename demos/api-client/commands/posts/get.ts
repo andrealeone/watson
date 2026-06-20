@@ -1,4 +1,4 @@
-import { command } from 'cti/src/core/command'
+import { command } from 'cti'
 import { DATA, emit } from '../../lib/utils'
 
 export default command({

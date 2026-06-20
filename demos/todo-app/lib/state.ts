@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { homedir } from 'node:os'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
-import type { Context } from 'cti/src/types/context'
+import type { Context } from 'cti'
 
 export interface Todo {
   id: number

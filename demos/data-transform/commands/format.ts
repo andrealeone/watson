@@ -1,4 +1,4 @@
-import { command } from 'cti/src/core/command'
+import { command } from 'cti'
 import { toCSV, toTable, type Row } from '../lib/formats'
 
 export default command({
