@@ -48,7 +48,7 @@ A user profile manager CLI that showcases CTI's interactive and logging features
 View a specific user profile with colored formatting.
 
 ```bash
-bun run ./src/cli.ts view user-123-abc
+bun run ./main.ts view user-123-abc
 ```
 
 ### `list`
@@ -56,7 +56,7 @@ bun run ./src/cli.ts view user-123-abc
 List all stored profiles with color-coded roles.
 
 ```bash
-bun run ./src/cli.ts list
+bun run ./main.ts list
 ```
 
 ### `create`
@@ -64,7 +64,7 @@ bun run ./src/cli.ts list
 Interactively create a new user profile. Prompts for name, email, and role selection.
 
 ```bash
-bun run ./src/cli.ts create
+bun run ./main.ts create
 ```
 
 ### `import`
@@ -72,7 +72,7 @@ bun run ./src/cli.ts create
 Import profiles from a JSON array on stdin.
 
 ```bash
-echo '[{"name":"Alice","email":"alice@example.com","role":"admin"}]' | bun run ./src/cli.ts import
+echo '[{"name":"Alice","email":"alice@example.com","role":"admin"}]' | bun run ./main.ts import
 ```
 
 ## Storage

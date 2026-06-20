@@ -61,7 +61,7 @@ This minimalism is intentional. A smaller surface area means:
 CTI compiles to executables that work anywhere:
 
 ```bash
-bun build ./src/cli.ts --compile --outfile dist/my-cli
+bun build ./main.ts --compile --outfile dist/my-cli
 ./dist/my-cli
 ```
 

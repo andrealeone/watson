@@ -157,18 +157,18 @@ Where CTI is heading.
 
 ### Quick Links
 
-| Goal                         | Document                                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
+| Goal                      | Document                                                                              |
+| ------------------------- | ------------------------------------------------------------------------------------- |
 | Decide whether to use CTI | [Vision](principles/vision.md) + [Value Proposition](principles/value-proposition.md) |
-| Build your first command     | [Quick Start](getting-started/quickstart.md)                                          |
+| Build your first command  | [Quick Start](getting-started/quickstart.md)                                          |
 | Understand CTI            | [Core Concepts](concepts/core-concepts.md)                                            |
-| Write better commands        | [Building Commands](guides/building-commands.md)                                      |
-| See working examples         | [Demos](guides/demos.md) + [Examples](guides/examples.md)                             |
-| Look up a type               | [API Reference](reference/api-reference.md)                                           |
+| Write better commands     | [Building Commands](guides/building-commands.md)                                      |
+| See working examples      | [Demos](guides/demos.md) + [Examples](guides/examples.md)                             |
+| Look up a type            | [API Reference](reference/api-reference.md)                                           |
 | Understand how CTI works  | [System Design](architecture/system-design.md)                                        |
-| Understand testing           | [Testing Guide](contributing/testing.md)                                              |
+| Understand testing        | [Testing Guide](contributing/testing.md)                                              |
 | Contribute to CTI         | [Contributing Guide](contributing/guide.md)                                           |
-| See what's coming            | [Roadmap](future/roadmap.md)                                                          |
+| See what's coming         | [Roadmap](future/roadmap.md)                                                          |
 
 ---
 

@@ -27,7 +27,7 @@ bun install
 
 ### Your First Command
 
-Create `src/cli.ts`. A command is a `CommandModule`; you map commands to routes with `defineManifest`, then dispatch with `run`:
+Create `main.ts`. A command is a `CommandModule`; you map commands to routes with `defineManifest`, then dispatch with `run`:
 
 ```typescript
 import type { CommandModule } from './types/command'
@@ -50,7 +50,7 @@ process.exit(await run(manifest, config))
 ### Run It
 
 ```bash
-bun run ./src/cli.ts hello Alice
+bun run ./main.ts hello Alice
 # Output: Hello, Alice!
 ```
 
@@ -75,7 +75,7 @@ const hello: CommandModule = {
 Run it:
 
 ```bash
-bun run ./src/cli.ts hello Alice --formal
+bun run ./main.ts hello Alice --formal
 # Output: Greetings, Alice!
 ```
 
@@ -84,7 +84,7 @@ bun run ./src/cli.ts hello Alice --formal
 Create a standalone executable:
 
 ```bash
-bun build ./src/cli.ts --compile --outfile dist/my-cli
+bun build ./main.ts --compile --outfile dist/my-cli
 ./dist/my-cli hello Bob
 # Output: Hello, Bob!
 ```

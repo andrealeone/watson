@@ -63,19 +63,19 @@ The `Context` passed to every command exposes:
 From the repo root (no install needed — demos import the framework by relative path):
 
 ```bash
-bun run ./demos/hello-world/src/cli.ts hello Alice
+bun run ./demos/hello-world/main.ts hello Alice
 # Hello, Alice!
 
-bun run ./demos/deploy-tool/src/cli.ts deploy --env production --verbose
-bun run ./demos/api-client/src/cli.ts users get 2
-echo '{"name":"Alice"}' | bun run ./demos/data-transform/src/cli.ts format json
+bun run ./demos/deploy-tool/main.ts deploy --env production --verbose
+bun run ./demos/api-client/main.ts users get 2
+echo '{"name":"Alice"}' | bun run ./demos/data-transform/main.ts format json
 ```
 
 Build a standalone binary for any demo:
 
 ```bash
 cd demos/hello-world
-bun build ./src/cli.ts --compile --outfile dist/hello
+bun build ./main.ts --compile --outfile dist/hello
 ./dist/hello hello Bob
 ```
 
@@ -83,21 +83,21 @@ bun build ./src/cli.ts --compile --outfile dist/hello
 
 ```bash
 # todo-app — state lives in ~/.cti-todos.json
-bun run ./demos/todo-app/src/cli.ts add "Buy groceries"
-bun run ./demos/todo-app/src/cli.ts list
-bun run ./demos/todo-app/src/cli.ts complete 1
+bun run ./demos/todo-app/main.ts add "Buy groceries"
+bun run ./demos/todo-app/main.ts list
+bun run ./demos/todo-app/main.ts complete 1
 
 # deploy-tool — rollback is guarded
-bun run ./demos/deploy-tool/src/cli.ts rollback --env staging          # exits 1: asks for --force
-bun run ./demos/deploy-tool/src/cli.ts rollback --env staging --force  # proceeds
+bun run ./demos/deploy-tool/main.ts rollback --env staging          # exits 1: asks for --force
+bun run ./demos/deploy-tool/main.ts rollback --env staging --force  # proceeds
 
 # api-client — configuration comes from the environment
-API_URL=https://api.mysite.com bun run ./demos/api-client/src/cli.ts config
+API_URL=https://api.mysite.com bun run ./demos/api-client/main.ts config
 
 # interactive-io — logger, prompts, and colours
-bun run ./demos/interactive-io/src/cli.ts list
-echo '[{"id":"1","name":"Alice","email":"alice@example.com","role":"admin"}]' | bun run ./demos/interactive-io/src/cli.ts import
-bun run ./demos/interactive-io/src/cli.ts view 1
+bun run ./demos/interactive-io/main.ts list
+echo '[{"id":"1","name":"Alice","email":"alice@example.com","role":"admin"}]' | bun run ./demos/interactive-io/main.ts import
+bun run ./demos/interactive-io/main.ts view 1
 ```
 
 ## Validation
@@ -130,7 +130,7 @@ becomes the `users/list` command.
 
 ## Adding a Demo
 
-Create `demos/<name>/src/cli.ts` and add an `EXPECTATIONS` entry in
+Create `demos/<name>/main.ts` and add an `EXPECTATIONS` entry in
 `tests/demos/demos.test.ts` — the harness fails if a demo has no expectations.
 
 For a discovery-based demo with multiple commands, create files in `commands/` (see

@@ -25,7 +25,7 @@ const init = command({
       version: '1.0.0',
       type: 'module',
       scripts: {
-        dev: type === 'cli' ? 'bun run ./src/cli.ts' : 'bun run ./src/index.ts',
+        dev: type === 'cli' ? 'bun run ./main.ts' : 'bun run ./src/index.ts',
       },
     }
     writeFileSync(join(dir, 'package.json'), JSON.stringify(pkg, null, 2))
