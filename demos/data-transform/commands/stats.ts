@@ -1,4 +1,4 @@
-import { command } from 'cti/src/core/command'
+import { command } from 'cti'
 import { readFileSync } from 'node:fs'
 import { parseCSV } from '../lib/formats'
 

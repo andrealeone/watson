@@ -3,6 +3,8 @@
   "version": "1.0.0-rc.1",
   "description": "Bun-Native TypeScript CLI Framework",
   "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "bin": {
     "app": "./dist/cli.js"
   },

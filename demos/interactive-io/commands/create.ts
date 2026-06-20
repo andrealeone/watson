@@ -1,4 +1,4 @@
-import { command } from 'cti/src/core/command'
+import { command } from 'cti'
 import { loadProfiles, saveProfiles, generateId } from '../lib/storage'
 
 const ROLES = ['admin', 'user', 'viewer'] as const

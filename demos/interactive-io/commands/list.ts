@@ -1,4 +1,4 @@
-import { command } from 'cti/src/core/command'
+import { command } from 'cti'
 import { loadProfiles } from '../lib/storage'
 
 export default command({

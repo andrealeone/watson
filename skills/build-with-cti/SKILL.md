@@ -56,9 +56,8 @@ Routing rule (from `src/core/discovery.ts`): every `.ts` file under the commands
 Inline manifest (small CLI):
 
 ```typescript
-import type { Config } from '@/types/config'
-import { command } from '@/core/command'
-import { defineManifest, run } from '@/core/runtime'
+import { command, defineManifest, run } from 'cti'
+import type { Config } from 'cti'
 
 const hello = command({
   meta: { description: 'Greet someone' },
@@ -74,8 +73,8 @@ void run(config)
 Directory-scanned manifest (larger CLI) — pass `import.meta` and let `run()` discover commands from `config.commandsDir`:
 
 ```typescript
-import type { Config } from '@/types/config'
-import { run } from '@/core/runtime'
+import { run } from 'cti'
+import type { Config } from 'cti'
 
 const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
 void run(config, import.meta)
@@ -85,14 +84,14 @@ void run(config, import.meta)
 
 `Config` (`src/types/config.d.ts`) is `{ name, version, commandsDir?, targets?, bin?, manifest? }` — there's no enforced loader; build it however suits the project and it's available to every command as `ctx.config`. Set `manifest` directly, or leave it unset and pass `import.meta` to `run()` so it can discover one from `commandsDir`.
 
-Note on imports: this repo (and its demos) uses the `@/*` → `./src/*` path alias from `tsconfig.json`. A consumer project building against a published `cti` package would instead import from the package name directly (`import { run } from 'cti'`); check the target project's own `tsconfig.json`/`package.json` to know which form applies.
+Note on imports: import everything from the package root (`import { run } from 'cti'`) — `src/index.ts` is a barrel that re-exports the public runtime, `command()` helper, and types. Internally, this repo's own source uses the `@/*` → `./src/*` path alias from `tsconfig.json`; deep paths like `cti/src/core/runtime` still resolve for consumers but are no longer the documented form.
 
 ## Writing a command
 
 Prefer the `command()` helper (`src/core/command.ts`) over a bare object literal with `satisfies CommandModule` — it's what the real demos use, and it gives the same type inference with less ceremony:
 
 ```typescript
-import { command } from '@/core/command'
+import { command } from 'cti'
 
 export default command({
   meta: {
