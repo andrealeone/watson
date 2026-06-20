@@ -5,8 +5,8 @@
 ## Basic Usage
 
 ```typescript
-import { command } from 'cti'
-import { defineManifest, run } from 'cti'
+import type { Config } from 'cti'
+import { command, defineManifest, run } from 'cti'
 
 const hello = command({
   meta: { description: 'Greet someone' },
@@ -16,12 +16,16 @@ const hello = command({
   },
 })
 
-const manifest = defineManifest({ hello })
+const config: Config = {
+  name: 'my-cli',
+  version: '1.0.0',
+  manifest: defineManifest({ hello }),
+}
 
-process.exit(await run(manifest, config))
+process.exit(await run(config))
 ```
 
-The keys of the object passed to `defineManifest` become routes, and the values are the command modules themselves — no filesystem, no `commandsDir` walk.
+The keys of the object passed to `defineManifest` become routes, and the values are the command modules themselves — no filesystem, no `commandsDir` walk. Assigning the result to `config.manifest` tells `run()` to use it directly instead of discovering commands from disk.
 
 ## Nested Routes
 
@@ -47,4 +51,4 @@ For CLIs with many commands, prefer `discoverManifest` over a `commands` directo
 
 ## Relationship to discoverManifest
 
-`defineManifest` and `discoverManifest` are interchangeable inputs to `run`. Swapping one for the other never requires changing command modules, the router, or the `Config` — only how the manifest's entries are produced changes.
+`defineManifest` and `discoverManifest` produce interchangeable values for `config.manifest`. Swapping one for the other never requires changing command modules, the router, or the rest of `Config` — only how the manifest's entries are produced changes.

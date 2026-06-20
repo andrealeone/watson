@@ -165,13 +165,14 @@ Internal manifest used by the router for command discovery.
 interface Config {
   name: string
   bin?: string
-  commandsDir: string
+  commandsDir?: string
   version: string
   targets?: string[]
+  manifest?: Manifest
 }
 ```
 
-Base configuration interface. Extend this with your own properties.
+Base configuration interface. Extend this with your own properties. If `manifest` is set, it's used directly; otherwise the manifest is discovered from `commandsDir`.
 
 ### Functions
 
@@ -180,10 +181,10 @@ Base configuration interface. Extend this with your own properties.
 #### run
 
 ```typescript
-function run(manifest: Manifest, config: Config, argv?: string[]): Promise<number>
+function run(config: Config, importMeta?: { dir: string }, argv?: string[]): Promise<number>
 ```
 
-The main dispatcher. Resolves `argv` (defaults to `Bun.argv.slice(2)`) against the manifest, parses and coerces flags, builds the `Context`, invokes the matched command, and resolves to the process exit code (the command's numeric return, or `0`). On an unknown command or a thrown error it writes to stderr and resolves to `1`.
+The main dispatcher. Uses `config.manifest` if present, otherwise discovers one from `config.commandsDir` (resolved relative to `importMeta.dir` — required in that case). Resolves `argv` (defaults to `Bun.argv.slice(2)`) against the manifest, parses and coerces flags, builds the `Context`, invokes the matched command, and resolves to the process exit code (the command's numeric return, or `0`). On an unknown command or a thrown error it writes to stderr and resolves to `1`.
 
 #### defineManifest
 
@@ -338,7 +339,6 @@ const hello: CommandModule = {
   },
 }
 
-const manifest = defineManifest({ hello })
-const config: Config = { name: 'demo', commandsDir: 'commands', version: '1.0.0' }
-process.exit(await run(manifest, config))
+const config: Config = { name: 'demo', version: '1.0.0', manifest: defineManifest({ hello }) }
+process.exit(await run(config))
 ```

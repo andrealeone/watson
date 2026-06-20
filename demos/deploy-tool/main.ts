@@ -56,12 +56,11 @@ const status = command({
   },
 })
 
-const manifest = defineManifest({ deploy, rollback, status })
-
 const config: Config = {
   name: 'deploy-tool',
   bin: 'deploy',
   version: '1.0.0',
+  manifest: defineManifest({ deploy, rollback, status }),
 }
 
-process.exit(await run(manifest, config))
+process.exit(await run(config))

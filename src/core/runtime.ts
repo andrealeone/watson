@@ -31,50 +31,26 @@ export function defineManifest(routes: Record<string, CommandModule>): Manifest 
 }
 
 /**
- * Dispatch a command from an automatically discovered manifest.
- * The manifest is discovered from the commandsDir in config, resolved relative
- * to the caller's location (import.meta.dir).
+ * Dispatch a command using `config.manifest` if present, otherwise auto-discover
+ * one from `config.commandsDir`, resolved relative to the caller's location
+ * (`importMeta.dir`). `importMeta` is only required when discovery is needed.
  */
 export async function run(
   config: Config,
-  importMeta: { dir: string },
-  argv?: string[],
-): Promise<number>
-
-/**
- * Dispatch a command from an explicit manifest.
- * Kept for backwards compatibility and for tests that build manifests inline.
- */
-export async function run(manifest: Manifest, config: Config, argv?: string[]): Promise<number>
-
-export async function run(
-  configOrManifest: Config | Manifest,
-  configOrImportMeta?: Config | { dir: string },
+  importMeta?: { dir: string },
   argv?: string[],
 ): Promise<number> {
-  // Determine if we received (manifest, config, argv) or (config, import.meta, argv)
-  const isFirstArgManifest = 'entries' in configOrManifest
-
   let manifest: Manifest
-  let config: Config
-  let resolvedArgv: string[]
 
-  if (isFirstArgManifest) {
-    // Old signature: (manifest, config, argv)
-    manifest = configOrManifest
-    config = configOrImportMeta as Config
-    resolvedArgv = argv ?? Bun.argv.slice(2)
+  if (config.manifest) {
+    manifest = config.manifest
   } else {
-    // New signature: (config, import.meta, argv)
-    config = configOrManifest
-    const importMeta = configOrImportMeta as { dir?: string } | undefined
     if (!importMeta?.dir) {
       console.error(
-        'Error: run(config, import.meta, argv?) requires passing import.meta (with a dir) as the second argument.',
+        'Error: discovering commands from config.commandsDir requires passing import.meta (with a dir) as the second argument to run().',
       )
       return 1
     }
-    resolvedArgv = argv ?? Bun.argv.slice(2)
 
     // Auto-discover manifest from config.commandsDir
     const commandsDir = config.commandsDir ?? 'commands'
@@ -99,6 +75,8 @@ export async function run(
       return 1
     }
   }
+
+  const resolvedArgv = argv ?? Bun.argv.slice(2)
 
   const io = createIo(),
     logger = createLogger()

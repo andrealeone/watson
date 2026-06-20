@@ -47,12 +47,11 @@ const init = command({
   },
 })
 
-const manifest = defineManifest({ init })
-
 const config: Config = {
   name: 'project-init',
   bin: 'init',
   version: '1.0.0',
+  manifest: defineManifest({ init }),
 }
 
-process.exit(await run(manifest, config))
+process.exit(await run(config))

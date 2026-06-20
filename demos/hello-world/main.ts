@@ -18,12 +18,11 @@ const goodbye = command({
   },
 })
 
-const manifest = defineManifest({ hello, goodbye })
-
 const config: Config = {
   name: 'hello-world',
   bin: 'hello',
   version: '1.0.0',
+  manifest: defineManifest({ hello, goodbye }),
 }
 
-process.exit(await run(manifest, config))
+process.exit(await run(config))

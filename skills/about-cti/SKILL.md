@@ -79,9 +79,8 @@ const hello: CommandModule = {
   },
 }
 
-const manifest = defineManifest({ hello })
-const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
-process.exit(await run(manifest, config))
+const config: Config = { name: 'my-cli', version: '1.0.0', manifest: defineManifest({ hello }) }
+process.exit(await run(config))
 ```
 
 ```bash
