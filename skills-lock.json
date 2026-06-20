@@ -7,6 +7,12 @@
       "skillPath": "fallow/skills/fallow/SKILL.md",
       "computedHash": "53187fb28352440857278e84d2592302aec2157d8b5caaa301d6848303019285"
     },
+    "improve": {
+      "source": "shadcn/improve",
+      "sourceType": "github",
+      "skillPath": "skills/improve/SKILL.md",
+      "computedHash": "39a9358732dcff385e9e4d3e60b4547856f834e54a58b35e455aa9bd49928c13"
+    },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
