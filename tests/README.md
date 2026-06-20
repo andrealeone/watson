@@ -47,9 +47,9 @@ contract so a future real implementation becomes a deliberate, test-visible chan
 
 E2E spawns the real CLI and asserts on argv → stdout/stderr/exit. Intended cases
 live in `e2e/cli.e2e.test.ts` as `test.todo` because **there is no CLI entry point
-yet**: `package.json` points at `src/cli.ts`, which does not exist. The current
+yet**: `package.json` points at `main.ts`, which does not exist. The current
 `src/` provides the primitives (parser, router, io, utils) but nothing wires them
-into a runnable dispatcher. Once `src/cli.ts` (or a `dist/` binary) lands, convert
+into a runnable dispatcher. Once `main.ts` (or a `dist/` binary) lands, convert
 the `test.todo`s into real `Bun.spawn` assertions. Suggested split as it grows:
 
 - `e2e/dispatch.e2e.test.ts` — routing + positionals + unknown-command exit codes
@@ -61,7 +61,7 @@ the `test.todo`s into real `Bun.spawn` assertions. Suggested split as it grows:
 `demos/demos.test.ts` is a **single, generic, data-driven harness**, per the task.
 
 **How a demo is validated:** as a black box. The harness spawns each demo's CLI
-the way a user would (`bun run <demo>/src/cli.ts <args>`), pipes stdin/env, and
+the way a user would (`bun run <demo>/main.ts <args>`), pipes stdin/env, and
 asserts on **exit code + a few key output fragments** (substrings or regexes) —
 never a byte-for-byte transcript.
 
@@ -94,7 +94,7 @@ All demos now run against the real, manifest-based API and the harness is green.
 History worth knowing: the demos were originally written against the API described
 in `docs/` (a `Router` class with `router.command(...)`), which `src/` never
 implemented — they failed to even import. They were rewritten to use the actual
-primitives, and the missing dispatcher (present in the Phase 0 spike's `src/cli.ts`,
+primitives, and the missing dispatcher (present in the Phase 0 spike's `main.ts`,
 dropped by a later refactor) was restored as **`src/core/runtime.ts`** — a `run()` +
 `defineManifest()` pair that composes `resolveRoute` + `parseAndCoerce` + `createIo`.
 Each demo now defines `CommandModule`s, builds a manifest inline, and calls `run()`.
