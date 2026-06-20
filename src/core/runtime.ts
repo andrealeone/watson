@@ -45,11 +45,7 @@ export async function run(
  * Dispatch a command from an explicit manifest.
  * Kept for backwards compatibility and for tests that build manifests inline.
  */
-export async function run(
-  manifest: Manifest,
-  config: Config,
-  argv?: string[],
-): Promise<number>
+export async function run(manifest: Manifest, config: Config, argv?: string[]): Promise<number>
 
 export async function run(
   configOrManifest: Config | Manifest,
@@ -65,12 +61,12 @@ export async function run(
 
   if (isFirstArgManifest) {
     // Old signature: (manifest, config, argv)
-    manifest = configOrManifest as Manifest
+    manifest = configOrManifest
     config = configOrImportMeta as Config
     resolvedArgv = argv ?? Bun.argv.slice(2)
   } else {
     // New signature: (config, import.meta, argv)
-    config = configOrManifest as Config
+    config = configOrManifest
     const importMeta = configOrImportMeta as { dir: string }
     resolvedArgv = argv ?? Bun.argv.slice(2)
 
@@ -79,7 +75,7 @@ export async function run(
     let resolvedCommandsDir = join(importMeta.dir, commandsDir)
 
     // If commands dir doesn't exist, try looking in the parent directory
-    // (handles case where CLI is in src/cli.ts but commands is at root)
+    // (handles case where CLI is in main.ts but commands is at root)
     if (!existsSync(resolvedCommandsDir)) {
       const parentDir = dirname(importMeta.dir)
       const parentCommandsDir = join(parentDir, commandsDir)
