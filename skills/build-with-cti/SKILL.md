@@ -22,21 +22,22 @@ Everything else (colour output, spinners, prompts, logging) hangs off the `Conte
 Two valid shapes, pick based on size:
 
 **Small CLI (few commands) — inline manifest, no `commands/` directory:**
+
 ```
 my-cli/
-├── src/
-│   └── cli.ts          # entrypoint: defines commands inline, calls defineManifest + run
+├── main.ts          # entrypoint: defines commands inline, calls defineManifest + run
 ├── package.json
 └── tsconfig.json
 ```
-See `demos/hello-world/src/cli.ts` and `demos/deploy-tool/src/cli.ts` for this pattern — multiple commands defined as local variables, composed with `defineManifest({ deploy, rollback, status })`.
+
+See `demos/hello-world/main.ts` and `demos/deploy-tool/main.ts` for this pattern — multiple commands defined as local variables, composed with `defineManifest({ deploy, rollback, status })`.
 
 **Larger CLI (many commands) — directory-scanned manifest:**
+
 ```
 my-cli/
-├── src/
-│   ├── cli.ts           # entrypoint: discoverManifest(commandsDir) + run
-│   └── state.ts         # shared helpers/state, NOT a command (no default CommandModule export)
+├── main.ts           # entrypoint: discoverManifest(commandsDir) + run
+├── state.ts         # shared helpers/state, NOT a command (no default CommandModule export)
 ├── commands/
 │   ├── add.ts           # → my-cli add
 │   ├── list.ts           # → my-cli list
@@ -45,13 +46,15 @@ my-cli/
 ├── package.json
 └── tsconfig.json
 ```
-See `demos/todo-app/` for this pattern in full — `src/cli.ts` calls `discoverManifest(join(import.meta.dir, '..', 'commands'))`, and each file under `commands/` exports a default `CommandModule` built with the `command()` helper.
+
+See `demos/todo-app/` for this pattern in full — `main.ts` calls `discoverManifest(join(import.meta.dir, '..', 'commands'))`, and each file under `commands/` exports a default `CommandModule` built with the `command()` helper.
 
 Routing rule (from `src/core/discovery.ts`): every `.ts` file under the commands directory becomes a route that mirrors its file path (`commands/db/migrate.ts` → `db migrate`); a file named `index.ts` collapses into its parent's route (`commands/db/index.ts` → `db`); files matching `*.test.ts` are skipped.
 
 ## The entrypoint
 
 Inline manifest (small CLI):
+
 ```typescript
 import type { Config } from '@/types/config'
 import { command } from '@/core/command'
@@ -70,6 +73,7 @@ process.exit(await run(manifest, config))
 ```
 
 Directory-scanned manifest (larger CLI):
+
 ```typescript
 import type { Config } from '@/types/config'
 import { run } from '@/core/runtime'
@@ -112,6 +116,7 @@ export default command({
 `meta`, `flags`, and `args` are all optional — the minimal command is just `command({ run(ctx) { ... } })`.
 
 ### CommandMeta (`src/types/command.d.ts`)
+
 ```typescript
 interface CommandMeta {
   description?: string
@@ -122,6 +127,7 @@ interface CommandMeta {
 ```
 
 ### Flags (`FlagSpec`)
+
 ```typescript
 interface FlagSpec {
   type: 'string' | 'boolean' | 'number'
@@ -134,9 +140,11 @@ interface FlagSpec {
   validate?: (value: unknown) => true | string
 }
 ```
+
 Flags are parsed via Node's `util.parseArgs` under the hood (`src/core/parser.ts`) and coerced to their declared type (`src/utils/coerce.ts`); an invalid number throws. Numeric defaults are stringified internally for `parseArgs` and coerced back, so you don't need to think about that — just declare `type: 'number'` and a numeric `default`.
 
 ### Positionals (`ArgSpec`, declarative — currently informational)
+
 ```typescript
 interface ArgSpec {
   name: string
@@ -146,6 +154,7 @@ interface ArgSpec {
   validate?: (value: string) => true | string
 }
 ```
+
 In practice, positionals arrive as a plain `string[]` on `ctx.positionals` regardless of whether `args` is declared — access them by index (`ctx.positionals[0]`) and validate yourself in `run()`. Always validate before using; a missing positional is just `undefined`, not an error thrown for you.
 
 ### Type-safe flags via generics
@@ -164,8 +173,10 @@ export default command<DeployFlags>({
     force: { type: 'boolean' },
   },
   run(ctx) {
-    const env = ctx.flags.env       // typed string, not any
-    if (ctx.flags.force) { /* typed boolean */ }
+    const env = ctx.flags.env // typed string, not any
+    if (ctx.flags.force) {
+      /* typed boolean */
+    }
   },
 })
 ```
@@ -190,6 +201,7 @@ This is the only argument a handler receives — everything the command needs co
 ## The I/O interface — mind the spelling
 
 `Io` (`src/types/io.d.ts`, implemented in `src/io/index.ts`):
+
 ```typescript
 interface Io {
   isTTY: boolean
@@ -205,7 +217,7 @@ interface Io {
 type Color = 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'gray'
 ```
 
-**Important inconsistency:** the prose docs (`docs/guides/building-commands.md`, `docs/concepts/core-concepts.md`) consistently write `ctx.io.colour(...)` and `Colour` (British spelling). The actual source (`src/types/io.d.ts`) and every real demo (`demos/deploy-tool/src/cli.ts`, etc.) use the American spelling: **`ctx.io.color(...)`**. Use `color`, not `colour` — the compiler will reject `colour` since it doesn't exist on the `Io` interface. If you see `colour` in a doc snippet, mentally substitute `color` before writing code.
+**Important inconsistency:** the prose docs (`docs/guides/building-commands.md`, `docs/concepts/core-concepts.md`) consistently write `ctx.io.colour(...)` and `Colour` (British spelling). The actual source (`src/types/io.d.ts`) and every real demo (`demos/deploy-tool/main.ts`, etc.) use the American spelling: **`ctx.io.color(...)`**. Use `color`, not `colour` — the compiler will reject `colour` since it doesn't exist on the `Io` interface. If you see `colour` in a doc snippet, mentally substitute `color` before writing code.
 
 ```typescript
 ctx.io.write(ctx.io.color('✓ Deployment successful', 'green'))
@@ -230,18 +242,20 @@ const choice = await ctx.io.select('Pick one:', ['a', 'b', 'c'] as const)
 
 ```typescript
 interface Logger {
-  level: LogLevel  // 'debug' | 'info' | 'warn' | 'error'
+  level: LogLevel // 'debug' | 'info' | 'warn' | 'error'
   debug: (...args: unknown[]) => void
   info: (...args: unknown[]) => void
   warn: (...args: unknown[]) => void
   error: (...args: unknown[]) => void
 }
 ```
+
 `ctx.logger.debug(...)` only prints when the `DEBUG` env var is set; the others always print. Use `logger` for internal diagnostics, `io.write`/`io.writeError` for user-facing output — don't conflate the two.
 
 ## Patterns to follow
 
 **Validate positionals early, return a non-zero exit code on failure:**
+
 ```typescript
 run(ctx) {
   const [source, dest] = ctx.positionals
@@ -255,6 +269,7 @@ run(ctx) {
 ```
 
 **Confirm before destructive operations unless `--force` is set:**
+
 ```typescript
 run: async (ctx) => {
   if (!ctx.flags.force) {
@@ -268,6 +283,7 @@ run: async (ctx) => {
 **Exit codes are the `run()` return value**, not `process.exit()` calls inside the handler — `run()` in `src/core/runtime.ts` already wraps the dispatch in `process.exit(await run(manifest, config))` at the entrypoint. Return `1` (or any non-zero number) for failure, `0` or `undefined` for success.
 
 **Errors thrown from a handler are caught by the runtime** (`src/core/runtime.ts`) and printed as `Error: <message>` with exit code 1 — you don't need a top-level try/catch purely to avoid a crash, but catch specific, expected errors yourself to give a better message:
+
 ```typescript
 run: async (ctx) => {
   try {
@@ -277,7 +293,7 @@ run: async (ctx) => {
       ctx.io.writeError(ctx.io.color(`Network error: ${err.message}`, 'red'))
       return 1
     }
-    throw err  // let the runtime's generic handler report unexpected errors
+    throw err // let the runtime's generic handler report unexpected errors
   }
 }
 ```
@@ -285,28 +301,39 @@ run: async (ctx) => {
 ## Testing commands
 
 Commands are plain functions, so test them directly with `bun:test` by constructing a `Context`:
+
 ```typescript
 import { describe, test, expect } from 'bun:test'
 import command from './mycommand'
 
 test('runs successfully', async () => {
   const ctx: Context = {
-    flags: {}, positionals: [], route: ['mycommand'], cwd: '/tmp',
-    env: {}, config: { name: 'x', bin: 'x', commandsDir: 'commands', version: '1.0.0' },
-    io: { /* mock the Io methods you actually call */ } as Io,
-    logger: { /* mock */ } as Logger,
+    flags: {},
+    positionals: [],
+    route: ['mycommand'],
+    cwd: '/tmp',
+    env: {},
+    config: { name: 'x', bin: 'x', commandsDir: 'commands', version: '1.0.0' },
+    io: {
+      /* mock the Io methods you actually call */
+    } as Io,
+    logger: {
+      /* mock */
+    } as Logger,
   }
   expect(await command.run(ctx)).toBe(0)
 })
 ```
+
 This repo's own test layout mirrors `src/`: e.g. `src/core/parser.ts` → `tests/unit/core/parser.test.ts`. Follow the same mirroring in a consumer project (`commands/add.ts` → `tests/unit/commands/add.test.ts` or similar) for consistency.
 
 ## Building a binary
 
 ```bash
-bun build ./src/cli.ts --compile --outfile dist/my-cli
+bun build ./main.ts --compile --outfile dist/my-cli
 ./dist/my-cli hello Alice
 ```
+
 No further config needed — this is the whole release pipeline for a CTI CLI.
 
 ## Quick checklist when adding a new command
