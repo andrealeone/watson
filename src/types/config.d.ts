@@ -1,7 +1,7 @@
 export interface Config {
   name: string
   bin: string
-  commandsDir: string
+  commandsDir?: string
   version: string
   targets?: string[]
 }

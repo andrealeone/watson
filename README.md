@@ -73,28 +73,22 @@ in `ctx.flags`. No manual parsing, no wiring it into a parser yourself.
 Create `src/cli.ts`:
 
 ```typescript
-import { join } from 'node:path'
 import { run } from './core/runtime'
-import { discoverManifest } from './core/discovery'
 import type { Config } from './types/config'
 
-const commandsDir = join(import.meta.dir, '..', 'commands')
+const config: Config = {
+  name: 'new-cli',
+  bin: 'new-cli',
+  version: '1.0.0',
+}
 
-const manifest = await discoverManifest(commandsDir),
-  config: Config = {
-    name: 'new-cli',
-    bin: 'new-cli',
-    commandsDir: 'commands',
-    version: '1.0.0',
-  }
-
-process.exit(await run(manifest, config))
+process.exit(await run(config, import.meta))
 ```
 
-That's the whole entrypoint, and it's the last time you'll edit it. CTI scans
-`commandsDir`, turns `fib.ts` into the `fib` route, parses argv against its
-declared flags, and dispatches — automatically, on every run. Add a second
-file and `app second-command` exists with no further wiring. See
+That's the whole entrypoint, and it's the last time you'll edit it. CTI automatically
+discovers commands from the `commands` directory, turns `fib.ts` into the `fib` route, 
+parses argv against its declared flags, and dispatches — automatically, on every run. 
+Add a second file and `app second-command` exists with no further wiring. See
 [Command Routing](docs/features/command-routing.md) for how the file
 structure maps to commands. Prefer to list commands by hand instead of
 relying on the filesystem? See
