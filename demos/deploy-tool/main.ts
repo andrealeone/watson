@@ -63,4 +63,4 @@ const config: Config = {
   manifest: defineManifest({ deploy, rollback, status }),
 }
 
-process.exit(await run(config))
+void run(config)

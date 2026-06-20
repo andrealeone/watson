@@ -45,7 +45,7 @@ const config: Config = {
     'auth/logout': logoutCommand,
   }),
 }
-process.exit(await run(config))
+void run(config)
 ```
 
 Configuration is code. Code is honest.

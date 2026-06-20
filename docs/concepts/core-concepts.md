@@ -75,7 +75,7 @@ The **runtime** is the entry point of your CLI. The `run()` dispatcher:
 import { defineManifest, run } from './core/runtime'
 
 const config: Config = { ...baseConfig, manifest: defineManifest({ hello, goodbye }) }
-process.exit(await run(config))
+void run(config)
 ```
 
 `defineManifest` maps slash-delimited routes (`'users/list'`) to command modules and is assigned to `config.manifest`; `run` does the dispatch. Route resolution and parsing live in the `router` and `parser` modules, which `run` composes.
@@ -122,7 +122,7 @@ CTI doesn't impose a loader or enforce where config comes from. Build the object
 
 ```typescript
 const config: Config = { name: 'my-cli', version: '1.0.0', manifest: defineManifest({ hello }) }
-process.exit(await run(config))
+void run(config)
 ```
 
 Configuration is then available to every command via `ctx.config`.

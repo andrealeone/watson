@@ -25,4 +25,4 @@ const config: Config = {
   manifest: defineManifest({ hello, goodbye }),
 }
 
-process.exit(await run(config))
+void run(config)

@@ -34,7 +34,7 @@ const hello: CommandModule = {
 }
 
 const config: Config = { name: 'demo', version: '1.0.0', manifest: defineManifest({ hello }) }
-process.exit(await run(config))
+void run(config)
 ```
 
 > Demos import the framework by **relative path** (`../../../src/...`) because they

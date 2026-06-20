@@ -68,7 +68,7 @@ const hello = command({
 })
 
 const config: Config = { name: 'my-cli', version: '1.0.0', manifest: defineManifest({ hello }) }
-process.exit(await run(config))
+void run(config)
 ```
 
 Directory-scanned manifest (larger CLI) — pass `import.meta` and let `run()` discover commands from `config.commandsDir`:
@@ -78,7 +78,7 @@ import type { Config } from '@/types/config'
 import { run } from '@/core/runtime'
 
 const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
-process.exit(await run(config, import.meta))
+void run(config, import.meta)
 ```
 
 (You can also call `discoverManifest(commandsDir)` yourself and assign the result to `config.manifest` — useful if you want to inspect or modify entries before dispatch. Either way, `Manifest` ends up on `config.manifest`.)
@@ -277,7 +277,7 @@ run: async (ctx) => {
 }
 ```
 
-**Exit codes are the `run()` return value**, not `process.exit()` calls inside the handler — `run()` in `src/core/runtime.ts` already wraps the dispatch in `process.exit(await run(config))` at the entrypoint. Return `1` (or any non-zero number) for failure, `0` or `undefined` for success.
+**Exit codes are the `run()` return value** — `run()` (`src/core/runtime.ts`) sets `process.exitCode` to that value internally, so the entrypoint just calls `void run(config)`; no `process.exit()` needed. Return `1` (or any non-zero number) for failure, `0` or `undefined` for success.
 
 **Errors thrown from a handler are caught by the runtime** (`src/core/runtime.ts`) and printed as `Error: <message>` with exit code 1 — you don't need a top-level try/catch purely to avoid a crash, but catch specific, expected errors yourself to give a better message:
 

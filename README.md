@@ -80,7 +80,7 @@ const config: Config = {
   version: '1.0.0',
 }
 
-process.exit(await run(config, import.meta))
+void run(config, import.meta)
 ```
 
 That's the whole entrypoint, and it's the last time you'll edit it. CTI automatically

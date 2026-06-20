@@ -7,4 +7,4 @@ const config: Config = {
   version: '1.0.0',
 }
 
-process.exit(await run(config, import.meta))
+void run(config, import.meta)

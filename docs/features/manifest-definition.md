@@ -22,7 +22,7 @@ const config: Config = {
   manifest: defineManifest({ hello }),
 }
 
-process.exit(await run(config))
+void run(config)
 ```
 
 The keys of the object passed to `defineManifest` become routes, and the values are the command modules themselves — no filesystem, no `commandsDir` walk. Assigning the result to `config.manifest` tells `run()` to use it directly instead of discovering commands from disk.
