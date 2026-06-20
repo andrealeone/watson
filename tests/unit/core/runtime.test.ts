@@ -232,11 +232,13 @@ describe('run', () => {
       ['cmd'],
       'cmd.ts',
       createContextTest((ctx: Context) => {
-        expect(ctx.config).toMatchObject(config)
+        expect(ctx.config).toBe(configWithManifest)
       }),
     )
 
-    await dispatch(manifest, ['cmd'])
+    const configWithManifest: Config = { ...config, manifest }
+
+    await run(configWithManifest, undefined, ['cmd'])
   })
 
   test('includes io and logger in context', async () => {

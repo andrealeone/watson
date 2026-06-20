@@ -36,7 +36,9 @@ export function defineManifest(routes: Record<string, CommandModule>): Manifest 
  * (`importMeta.dir`). `importMeta` is only required when discovery is needed.
  *
  * Sets `process.exitCode` to the resolved code so entrypoints can just call
- * `void run(config)` instead of `process.exit(await run(config))`.
+ * `void run(config)` instead of `process.exit(await run(config))`. This only
+ * happens when `argv` is omitted (the entrypoint case); callers passing an
+ * explicit `argv` (e.g. tests) get the exit code back without the side effect.
  */
 export async function run(
   config: Config,
@@ -45,7 +47,8 @@ export async function run(
 ): Promise<number> {
   const exitCode = await dispatch(config, importMeta, argv)
 
-  process.exitCode = exitCode
+  if (argv === undefined) process.exitCode = exitCode
+
   return exitCode
 }
 
