@@ -67,7 +67,11 @@ export async function run(
   } else {
     // New signature: (config, import.meta, argv)
     config = configOrManifest
-    const importMeta = configOrImportMeta as { dir: string }
+    const importMeta = configOrImportMeta as { dir?: string } | undefined
+    if (!importMeta?.dir) {
+      console.error('Error: run(config, import.meta, argv?) requires passing import.meta (with a dir) as the second argument.')
+      return 1
+    }
     resolvedArgv = argv ?? Bun.argv.slice(2)
 
     // Auto-discover manifest from config.commandsDir
