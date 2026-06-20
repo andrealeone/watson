@@ -79,7 +79,7 @@ export async function run(
     let resolvedCommandsDir = join(importMeta.dir, commandsDir)
 
     // If commands dir doesn't exist, try looking in the parent directory
-    // (handles case where CLI is in main.ts but commands is at root)
+    // (handles case where CLI entrypoint is in a subdirectory but commands is at the project root)
     if (!existsSync(resolvedCommandsDir)) {
       const parentDir = dirname(importMeta.dir)
       const parentCommandsDir = join(parentDir, commandsDir)
@@ -88,7 +88,14 @@ export async function run(
       }
     }
 
-    manifest = await discoverManifest(resolvedCommandsDir)
+    try {
+      manifest = await discoverManifest(resolvedCommandsDir)
+    } catch (error) {
+      console.error(
+        `Error: failed to discover commands in "${resolvedCommandsDir}": ${error instanceof Error ? error.message : String(error)}`,
+      )
+      return 1
+    }
   }
 
   const io = createIo(),
