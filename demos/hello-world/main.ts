@@ -1,6 +1,6 @@
-import type { Config } from '@/types/config'
-import { command } from '@/core/command'
-import { defineManifest, run } from '@/core/runtime'
+import type { Config } from 'cti/src/types/config'
+import { command } from 'cti/src/core/command'
+import { defineManifest, run } from 'cti/src/core/runtime'
 
 const hello = command({
   meta: { description: 'Greet someone' },
@@ -23,7 +23,6 @@ const manifest = defineManifest({ hello, goodbye })
 const config: Config = {
   name: 'hello-world',
   bin: 'hello',
-  commandsDir: 'commands',
   version: '1.0.0',
 }
 

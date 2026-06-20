@@ -34,7 +34,7 @@ const hello: CommandModule = {
 }
 
 const manifest = defineManifest({ hello })
-const config: Config = { name: 'demo', bin: 'demo', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'demo', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 
@@ -48,16 +48,16 @@ process.exit(await run(manifest, config))
 From the repo root:
 
 ```bash
-bun run ./demos/hello-world/src/cli.ts hello Alice
-bun run ./demos/api-client/src/cli.ts users get 2
-echo '{"name":"Alice"}' | bun run ./demos/data-transform/src/cli.ts format json
+bun run ./demos/hello-world/main.ts hello Alice
+bun run ./demos/api-client/main.ts users get 2
+echo '{"name":"Alice"}' | bun run ./demos/data-transform/main.ts format json
 ```
 
 Or compile any demo to a standalone binary:
 
 ```bash
 cd demos/hello-world
-bun build ./src/cli.ts --compile --outfile dist/hello && ./dist/hello hello Bob
+bun build ./main.ts --compile --outfile dist/hello && ./dist/hello hello Bob
 ```
 
 ### How they stay correct

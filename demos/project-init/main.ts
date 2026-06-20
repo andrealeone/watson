@@ -1,6 +1,6 @@
-import type { Config } from '@/types/config'
-import { command } from '@/core/command'
-import { defineManifest, run } from '@/core/runtime'
+import type { Config } from 'cti/src/types/config'
+import { command } from 'cti/src/core/command'
+import { defineManifest, run } from 'cti/src/core/runtime'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
@@ -25,7 +25,7 @@ const init = command({
       version: '1.0.0',
       type: 'module',
       scripts: {
-        dev: type === 'cli' ? 'bun run ./src/cli.ts' : 'bun run ./src/index.ts',
+        dev: type === 'cli' ? 'bun run ./main.ts' : 'bun run ./src/index.ts',
       },
     }
     writeFileSync(join(dir, 'package.json'), JSON.stringify(pkg, null, 2))
@@ -52,7 +52,6 @@ const manifest = defineManifest({ init })
 const config: Config = {
   name: 'project-init',
   bin: 'init',
-  commandsDir: 'commands',
   version: '1.0.0',
 }
 

@@ -1,3 +1,6 @@
+import { join, dirname } from 'node:path'
+import { existsSync } from 'node:fs'
+
 import type { Config } from '@/types/config'
 import type { Context } from '@/types/context'
 import type { Manifest } from '@/types/manifest'
@@ -6,6 +9,7 @@ import type { CommandModule } from '@/types/command'
 import { parseAndCoerce } from '@/core/parser'
 import { buildRouteLookup, resolveRoute } from '@/core/router'
 import { createIo, createLogger } from '@/io/index'
+import { discoverManifest } from '@/core/discovery'
 
 /**
  * Build a Manifest from a flat map of `route -> command module`.
@@ -27,23 +31,87 @@ export function defineManifest(routes: Record<string, CommandModule>): Manifest 
 }
 
 /**
- * Resolve argv against the manifest, parse flags, build the context, and run the
- * matched command. Returns the process exit code (the command's numeric return,
- * or 0). This is the same dispatch the Phase 0 spike proved out, factored into a
- * reusable function so each entry point (and every demo) is a few lines.
+ * Dispatch a command from an automatically discovered manifest.
+ * The manifest is discovered from the commandsDir in config, resolved relative
+ * to the caller's location (import.meta.dir).
  */
 export async function run(
-  manifest: Manifest,
   config: Config,
-  argv: string[] = Bun.argv.slice(2),
+  importMeta: { dir: string },
+  argv?: string[],
+): Promise<number>
+
+/**
+ * Dispatch a command from an explicit manifest.
+ * Kept for backwards compatibility and for tests that build manifests inline.
+ */
+export async function run(manifest: Manifest, config: Config, argv?: string[]): Promise<number>
+
+export async function run(
+  configOrManifest: Config | Manifest,
+  configOrImportMeta?: Config | { dir: string },
+  argv?: string[],
 ): Promise<number> {
+  // Determine if we received (manifest, config, argv) or (config, import.meta, argv)
+  const isFirstArgManifest = 'entries' in configOrManifest
+
+  let manifest: Manifest
+  let config: Config
+  let resolvedArgv: string[]
+
+  if (isFirstArgManifest) {
+    // Old signature: (manifest, config, argv)
+    manifest = configOrManifest
+    config = configOrImportMeta as Config
+    resolvedArgv = argv ?? Bun.argv.slice(2)
+  } else {
+    // New signature: (config, import.meta, argv)
+    config = configOrManifest
+    const importMeta = configOrImportMeta as { dir?: string } | undefined
+    if (!importMeta?.dir) {
+      console.error(
+        'Error: run(config, import.meta, argv?) requires passing import.meta (with a dir) as the second argument.',
+      )
+      return 1
+    }
+    resolvedArgv = argv ?? Bun.argv.slice(2)
+
+    // Auto-discover manifest from config.commandsDir
+    const commandsDir = config.commandsDir ?? 'commands'
+    let resolvedCommandsDir = join(importMeta.dir, commandsDir)
+
+    // If commands dir doesn't exist, try looking in the parent directory
+    // (handles case where CLI entrypoint is in a subdirectory but commands is at the project root)
+    if (!existsSync(resolvedCommandsDir)) {
+      const parentDir = dirname(importMeta.dir)
+      const parentCommandsDir = join(parentDir, commandsDir)
+      if (existsSync(parentCommandsDir)) {
+        resolvedCommandsDir = parentCommandsDir
+      }
+    }
+
+    try {
+      manifest = await discoverManifest(resolvedCommandsDir)
+    } catch (error) {
+      console.error(
+        `Error: failed to discover commands in "${resolvedCommandsDir}": ${error instanceof Error ? error.message : String(error)}`,
+      )
+      return 1
+    }
+  }
+
   const io = createIo(),
     logger = createLogger()
 
-  const match = resolveRoute(argv, buildRouteLookup(manifest))
+  // Use name as default for bin if not provided
+  if (!config.bin) {
+    config.bin = config.name
+  }
+
+  const match = resolveRoute(resolvedArgv, buildRouteLookup(manifest))
 
   if (!match) {
-    io.writeError(`Unknown command: ${argv.join(' ') || '(none)'}`)
+    io.writeError(`Unknown command: ${resolvedArgv.join(' ') || '(none)'}`)
     return 1
   }
 

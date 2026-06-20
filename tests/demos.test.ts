@@ -9,7 +9,7 @@ import { tmpdir } from 'node:os'
  *
  * Strategy (and why):
  *   We validate each demo as a BLACK BOX — spawn its CLI exactly as a user would
- *   (`bun run <demo>/src/cli.ts <args>`), feed stdin/env, then assert on exit
+ *   (`bun run <demo>/main.ts <args>`), feed stdin/env, then assert on exit
  *   code + key output fragments. We do NOT assert byte-for-byte transcripts.
  *
  * Why not hard-code full expected output inline?
@@ -167,14 +167,14 @@ function discoverDemos(): string[] {
   return readdirSync(DEMOS_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
-    .filter((name) => existsSync(join(DEMOS_DIR, name, 'src', 'cli.ts')))
+    .filter((name) => existsSync(join(DEMOS_DIR, name, 'main.ts')))
     .sort()
 }
 
 const demos = discoverDemos()
 
 async function runCase(demo: string, c: DemoCase) {
-  const cli = join(DEMOS_DIR, demo, 'src', 'cli.ts')
+  const cli = join(DEMOS_DIR, demo, 'main.ts')
   // NO_COLOR keeps output stable and colour-free for assertions.
   const env: Record<string, string> = {
     ...(process.env as Record<string, string>),

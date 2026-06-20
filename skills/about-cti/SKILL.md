@@ -18,6 +18,7 @@ CTI's bet is that CLI tools deserve a runtime engineered for their actual constr
 ## Who it's for
 
 Choose CTI if you are:
+
 - Building a standalone CLI tool (not a server, not a library)
 - Distributing a compiled, single-binary executable to end users
 - Already on or willing to adopt Bun
@@ -25,6 +26,7 @@ Choose CTI if you are:
 - Comfortable writing TypeScript and want full type safety on flags, args, and context
 
 CTI is probably the wrong choice if you:
+
 - Need to target Node.js specifically, or run in an environment without Bun
 - Are building a server or anything HTTP-facing (reach for Hono, Elysia, etc.)
 - Want an established, battle-tested ecosystem with a large plugin/extension surface (Oclif fits that need; CTI is intentionally small)
@@ -32,20 +34,20 @@ CTI is probably the wrong choice if you:
 
 ## How it compares
 
-| | CTI | Yargs / Commander.js | Oclif |
-|---|---|---|---|
-| Runtime | Bun only | Node.js | Node.js |
-| Startup | ~1–10ms | ~300–500ms | ~300–500ms |
-| Binary size | ~10–50MB | ~100–300MB+ | ~100–300MB+ |
-| Command shape | Plain typed module (`CommandModule`) | Chained builder calls | Classes + plugin system |
-| TypeScript | First-class, required mental model | Optional, bolted on | Optional |
-| Surface area | Deliberately minimal: routing, parsing, I/O primitives only | Large, flexible | Large, extensible via plugins |
+|               | CTI                                                         | Yargs / Commander.js  | Oclif                         |
+| ------------- | ----------------------------------------------------------- | --------------------- | ----------------------------- |
+| Runtime       | Bun only                                                    | Node.js               | Node.js                       |
+| Startup       | ~1–10ms                                                     | ~300–500ms            | ~300–500ms                    |
+| Binary size   | ~10–50MB                                                    | ~100–300MB+           | ~100–300MB+                   |
+| Command shape | Plain typed module (`CommandModule`)                        | Chained builder calls | Classes + plugin system       |
+| TypeScript    | First-class, required mental model                          | Optional, bolted on   | Optional                      |
+| Surface area  | Deliberately minimal: routing, parsing, I/O primitives only | Large, flexible       | Large, extensible via plugins |
 
 CTI isn't trying to out-feature these libraries — it's trying to be the obvious choice for one job: fast, lean, standalone CLIs written in TypeScript on Bun. Yargs and Commander predate Bun and carry Node-era API design; Oclif is excellent for large CLI suites that need a plugin ecosystem, at the cost of more concepts to learn and a heavier runtime.
 
 ## Design principles
 
-These shape every part of the framework, and explain *why* it works the way it does:
+These shape every part of the framework, and explain _why_ it works the way it does:
 
 - **Explicit over implicit.** No decorators, no auto-discovery magic, no hidden conventions. Commands are registered explicitly (`defineManifest({...})` or directory scanning via `discoverManifest`), config is an explicit object you build and pass to `run()`. Reading CTI code tells you exactly what happens.
 - **Minimalism by default.** CTI ships only what CLI tools actually need — routing, flag/positional parsing with type coercion, and I/O primitives (colour, spinner, prompt, confirm, select). No ORM, no web middleware, no plugin framework, no bundled logging framework beyond a basic logger. Fewer dependencies means faster startup and a smaller mental model.
@@ -65,7 +67,7 @@ These shape every part of the framework, and explain *why* it works the way it d
 ## The shape of a CTI CLI, at a glance
 
 ```typescript
-// src/cli.ts — the entire entrypoint for a small CLI
+// main.ts — the entire entrypoint for a small CLI
 import type { CommandModule } from './types/command'
 import type { Config } from './types/config'
 import { defineManifest, run } from './core/runtime'
@@ -78,13 +80,13 @@ const hello: CommandModule = {
 }
 
 const manifest = defineManifest({ hello })
-const config: Config = { name: 'my-cli', bin: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 
 ```bash
-bun run ./src/cli.ts hello Alice     # Hello, Alice!
-bun build ./src/cli.ts --compile --outfile dist/my-cli   # standalone binary
+bun run ./main.ts hello Alice     # Hello, Alice!
+bun build ./main.ts --compile --outfile dist/my-cli   # standalone binary
 ```
 
 That's the whole pitch: write commands as plain typed modules, let CTI handle dispatch, ship a binary.

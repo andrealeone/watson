@@ -1,6 +1,6 @@
-import type { Config } from '@/types/config'
-import { command } from '@/core/command'
-import { defineManifest, run } from '@/core/runtime'
+import type { Config } from 'cti/src/types/config'
+import { command } from 'cti/src/core/command'
+import { defineManifest, run } from 'cti/src/core/runtime'
 
 const deploy = command({
   meta: { description: 'Deploy application to an environment' },
@@ -61,7 +61,6 @@ const manifest = defineManifest({ deploy, rollback, status })
 const config: Config = {
   name: 'deploy-tool',
   bin: 'deploy',
-  commandsDir: 'commands',
   version: '1.0.0',
 }
 

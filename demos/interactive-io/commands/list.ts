@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { loadProfiles } from '../src/storage'
+import { command } from 'cti/src/core/command'
+import { loadProfiles } from '../lib/storage'
 
 export default command({
   meta: { description: 'List all user profiles' },

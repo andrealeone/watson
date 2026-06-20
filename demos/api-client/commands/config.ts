@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { baseUrl } from '../src/utils'
+import { command } from 'cti/src/core/command'
+import { baseUrl } from '../lib/utils'
 
 export default command({
   meta: { description: 'Show the resolved API configuration' },

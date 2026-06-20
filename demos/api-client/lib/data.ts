@@ -1,4 +1,4 @@
-import type { Context } from '@/types/context'
+import type { Context } from 'cti/src/types/context'
 
 // A real client would fetch over HTTP; demos use a fixed dataset so output is
 // deterministic and the demo runs offline.

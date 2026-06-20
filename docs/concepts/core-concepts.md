@@ -121,7 +121,7 @@ Positionals are accessed dynamically: `ctx.positionals[0]`, `ctx.positionals[1]`
 CTI doesn't impose a loader or enforce where config comes from. Build the object however suits you—a literal, parsed JSON/YAML, or environment variables—and hand it to `run`.
 
 ```typescript
-const config: Config = { name: 'my-cli', bin: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
+const config: Config = { name: 'my-cli', commandsDir: 'commands', version: '1.0.0' }
 process.exit(await run(manifest, config))
 ```
 

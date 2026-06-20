@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { loadProfiles, saveProfiles, generateId } from '../src/storage'
+import { command } from 'cti/src/core/command'
+import { loadProfiles, saveProfiles, generateId } from '../lib/storage'
 
 interface ImportRecord {
   name: string

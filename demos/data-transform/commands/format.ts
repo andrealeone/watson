@@ -1,5 +1,5 @@
-import { command } from '@/core/command'
-import { toCSV, toTable, type Row } from '../formats'
+import { command } from 'cti/src/core/command'
+import { toCSV, toTable, type Row } from '../lib/formats'
 
 export default command({
   meta: { description: 'Read JSON on stdin and render it as json|csv|table' },

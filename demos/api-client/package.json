@@ -9,7 +9,7 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "bun run ./src/cli.ts",
-    "build": "bun build ./src/cli.ts --compile --outfile dist/api"
+    "dev": "bun run ./main.ts",
+    "build": "bun build ./main.ts --compile --outfile dist/api"
   }
 }

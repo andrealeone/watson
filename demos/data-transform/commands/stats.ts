@@ -1,6 +1,6 @@
-import { command } from '@/core/command'
+import { command } from 'cti/src/core/command'
 import { readFileSync } from 'node:fs'
-import { parseCSV } from '../formats'
+import { parseCSV } from '../lib/formats'
 
 export default command({
   meta: { description: 'Show statistics about a csv or json file' },
